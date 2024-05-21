@@ -14,6 +14,7 @@ public class Player {
     private int score;
     private String name;
     private Animation run;
+    private String sprite;
 
     public Player(String rightImg, String name) {
         this.name = name;
@@ -31,7 +32,7 @@ public class Player {
         //By creating all the BufferedImages beforehand, we don't have to worry about lagging trying to read image files during gameplay
         ArrayList<BufferedImage> run_animation = new ArrayList<>();
         for (int i = 1; i <= 8; i++) {
-            String filename = "src/fire_knight/run/run_" + i + ".png";
+            String filename = "src/Assets/fire_knight/run/run_" + i + ".png";
             try {
                 run_animation.add(ImageIO.read(new File(filename)));
             }

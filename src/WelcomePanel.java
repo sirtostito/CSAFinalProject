@@ -18,7 +18,7 @@ public class WelcomePanel extends JPanel implements ActionListener {
     public WelcomePanel(JFrame frame) {
         enclosingFrame = frame;
         try {
-            goomba = ImageIO.read(new File("src/goomba.png"));
+            goomba = ImageIO.read(new File("src/Assets/goomba.png"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

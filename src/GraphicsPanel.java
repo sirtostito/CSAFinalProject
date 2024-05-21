@@ -17,11 +17,11 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
 
     public GraphicsPanel(String name) {
         try {
-            background = ImageIO.read(new File("src/background.png"));
+            background = ImageIO.read(new File("src/Assets/background.png"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-        player = new Player("src/knightright.png", name);
+        player = new Player("src/Assets/knightright.png", name);
         coins = new ArrayList<>();
         pressedKeys = new boolean[128];
         time = 0;
