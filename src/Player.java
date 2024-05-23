@@ -6,22 +6,29 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Player {
-    private final double MOVE_AMT = 0.6;
+    private final double MOVE_AMT = 0.3;
     private BufferedImage right;
     private boolean facingRight;
     private double xCoord;
     private double yCoord;
     private int score;
     private String name;
+    private Animation idle;
     private Animation run;
+    private Animation jump;
+    private Animation roll;
+    private Animation attack;
+    private Animation death;
+    private Animation special;
     private String sprite;
 
-    public Player(String rightImg, String name) {
+    public Player(String rightImg, String name, String sprite) {
         this.name = name;
         facingRight = true;
         xCoord = 50; // starting position is (50, 435), right on top of ground
         yCoord = 435;
         score = 0;
+        this.sprite = sprite;
         try {
             right = ImageIO.read(new File(rightImg));
         } catch (IOException e) {
@@ -30,9 +37,21 @@ public class Player {
 
         //The code below is used to programatically create an ArrayList of BufferedImages to use for an Animation object
         //By creating all the BufferedImages beforehand, we don't have to worry about lagging trying to read image files during gameplay
+        ArrayList<BufferedImage> idle_animation = new ArrayList<>();
+        for (int i = 1; i <= 15; i++) {
+            String filename = "src/Assets/" + sprite + "/Idle/" + sprite + "Idle" + i + ".png";
+            try {
+                idle_animation.add(ImageIO.read(new File(filename)));
+            }
+            catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        idle = new Animation(idle_animation,66);
+
         ArrayList<BufferedImage> run_animation = new ArrayList<>();
         for (int i = 1; i <= 8; i++) {
-            String filename = "src/Assets/fire_knight/run/run_" + i + ".png";
+            String filename = "src/Assets/" + sprite + "/Run/" + sprite + "Run" + i + ".png";
             try {
                 run_animation.add(ImageIO.read(new File(filename)));
             }
@@ -42,6 +61,53 @@ public class Player {
         }
         run = new Animation(run_animation,66);
 
+        ArrayList<BufferedImage> attack_animation = new ArrayList<>();
+        for (int i = 1; i <= 22; i++) {
+            String filename = "src/Assets/" + sprite + "/Attack/" + sprite + "Attack" + i + ".png";
+            try {
+                attack_animation.add(ImageIO.read(new File(filename)));
+            }
+            catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        attack = new Animation(attack_animation,66);
+
+        ArrayList<BufferedImage> death_animation = new ArrayList<>();
+        for (int i = 1; i <= 15; i++) {
+            String filename = "src/Assets/" + sprite + "/Death/" + sprite + "_Death" + i + ".png";
+            try {
+                death_animation.add(ImageIO.read(new File(filename)));
+            }
+            catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        death = new Animation(death_animation,66);
+
+        ArrayList<BufferedImage> jump_animation = new ArrayList<>();
+        for (int i = 1; i <= 14; i++) {
+            String filename = "src/Assets/" + sprite + "/Jump/" + sprite + "Jump" + i + ".png";
+            try {
+                jump_animation.add(ImageIO.read(new File(filename)));
+            }
+            catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        jump = new Animation(jump_animation,66);
+
+        ArrayList<BufferedImage> special_animation = new ArrayList<>();
+        for (int i = 1; i <= 7; i++) {
+            String filename = "src/Assets/" + sprite + "/Special/" + sprite + "Special" + i + ".png";
+            try {
+                special_animation.add(ImageIO.read(new File(filename)));
+            }
+            catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        special = new Animation(special_animation,66);
     }
 
     //This function is changed from the previous version to let the player turn left and right
@@ -51,7 +117,7 @@ public class Player {
         if (facingRight) {
             return (int) xCoord;
         } else {
-            return (int) (xCoord + (getPlayerImage().getWidth()));
+            return (int) (xCoord + (getPlayerImage("Idle").getWidth()));
         }
     }
 
@@ -111,29 +177,39 @@ public class Player {
         score++;
     }
 
-    public BufferedImage getPlayerImage() {
-        return run.getActiveFrame();
+    public BufferedImage getPlayerImage(String action) {
+        if (action.equals("Idle")) {
+            return idle.getActiveFrame();
+        } else if (action.equals("Run")) {
+            return run.getActiveFrame();
+        } else if (action.equals("Attack")) {
+            return attack.getActiveFrame();
+        } else if (action.equals("Jump")) {
+            return jump.getActiveFrame();
+        } else if (action.equals("Death")) {
+            return death.getActiveFrame();
+        } else return special.getActiveFrame();
     }
 
     //These functions are newly added to let the player turn left and right
     //These functions when combined with the updated getxCoord()
     //Allow the player to turn without needing separate images for left and right
     public int getHeight() {
-        return getPlayerImage().getHeight();
+        return getPlayerImage("Idle").getHeight();
     }
 
     public int getWidth() {
         if (facingRight) {
-            return getPlayerImage().getWidth();
+            return getPlayerImage("Idle").getWidth();
         } else {
-            return getPlayerImage().getWidth() * -1;
+            return getPlayerImage("Idle").getWidth() * -1;
         }
     }
 
     // we use a "bounding Rectangle" for detecting collision
     public Rectangle playerRect() {
-        int imageHeight = getPlayerImage().getHeight();
-        int imageWidth = getPlayerImage().getWidth();
+        int imageHeight = getPlayerImage("Idle").getHeight();
+        int imageWidth = getPlayerImage("Idle").getWidth();
         Rectangle rect = new Rectangle((int) xCoord, (int) yCoord, imageWidth, imageHeight);
         return rect;
     }

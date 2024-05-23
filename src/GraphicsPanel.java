@@ -14,6 +14,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     private ArrayList<Coin> coins;
     private Timer timer;
     private int time;
+    private String anim;
 
     public GraphicsPanel(String name) {
         try {
@@ -21,7 +22,8 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-        player = new Player("src/Assets/knightright.png", name);
+        anim = "Idle";
+        player = new Player("src/Assets/Knight/Idle/KnightIdle1.png", name, "Knight");
         coins = new ArrayList<>();
         pressedKeys = new boolean[128];
         time = 0;
@@ -41,8 +43,8 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         //Combined with the modified functions in the Player class, this does not modify the actual player image
         //Instead, it allows us to modify how the player image is drawn on the graphics object
         //However, this could potentially introduce desyncs between the graphics and the game logic
-        g.drawImage(player.getPlayerImage(), player.getxCoord(), player.getyCoord(), player.getWidth(), player.getHeight(), null);
-
+        g.drawImage(player.getPlayerImage(anim), player.getxCoord(), player.getyCoord(), player.getWidth(), player.getHeight(), null);
+        anim = "Idle";
         // this loop does two things:  it draws each Coin that gets placed with mouse clicks,
         // and it also checks if the player has "intersected" (collided with) the Coin, and if so,
         // the score goes up and the Coin is removed from the arraylist
@@ -63,24 +65,32 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
 
         // player moves left (A)
         if (pressedKeys[65]) {
+            anim = "Run";
             player.faceLeft();
             player.moveLeft();
         }
 
         // player moves right (D)
         if (pressedKeys[68]) {
+            anim = "Run";
             player.faceRight();
             player.moveRight();
         }
 
         // player moves up (W)
         if (pressedKeys[87]) {
+            anim = "Run";
             player.moveUp();
         }
 
         // player moves down (S)
         if (pressedKeys[83]) {
+            anim = "Run";
             player.moveDown();
+        }
+
+        if (pressedKeys[67]) {
+            anim = "Attack";
         }
     }
 
