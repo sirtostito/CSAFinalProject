@@ -89,7 +89,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
             player.moveDown();
         }
 
-        if (pressedKeys[67]) {
+        if (pressedKeys[80]) {
             anim = "Attack";
         }
     }

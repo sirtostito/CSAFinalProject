@@ -24,6 +24,10 @@ public class Animation implements ActionListener {
         return frames;
     }
 
+    public void resetFrames() {
+        currentFrame = 0;
+    }
+
     public BufferedImage getActiveFrame() {
         return frames.get(currentFrame);
     }

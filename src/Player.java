@@ -21,6 +21,7 @@ public class Player {
     private Animation death;
     private Animation special;
     private String sprite;
+    private boolean stun;
 
     public Player(String rightImg, String name, String sprite) {
         this.name = name;
@@ -28,6 +29,7 @@ public class Player {
         xCoord = 50; // starting position is (50, 435), right on top of ground
         yCoord = 435;
         score = 0;
+        stun = false;
         this.sprite = sprite;
         try {
             right = ImageIO.read(new File(rightImg));
@@ -61,17 +63,17 @@ public class Player {
         }
         run = new Animation(run_animation,66);
 
-        ArrayList<BufferedImage> attack_animation = new ArrayList<>();
+        ArrayList<BufferedImage> attack1_animation = new ArrayList<>();
         for (int i = 1; i <= 22; i++) {
             String filename = "src/Assets/" + sprite + "/Attack/" + sprite + "Attack" + i + ".png";
             try {
-                attack_animation.add(ImageIO.read(new File(filename)));
+                attack1_animation.add(ImageIO.read(new File(filename)));
             }
             catch (IOException e) {
                 System.out.println(e.getMessage());
             }
         }
-        attack = new Animation(attack_animation,66);
+        attack = new Animation(attack1_animation,66);
 
         ArrayList<BufferedImage> death_animation = new ArrayList<>();
         for (int i = 1; i <= 15; i++) {
