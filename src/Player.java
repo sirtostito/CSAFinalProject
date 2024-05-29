@@ -180,17 +180,14 @@ public class Player {
     }
 
     public BufferedImage getPlayerImage(String action) {
-        if (action.equals("Idle")) {
-            return idle.getActiveFrame();
-        } else if (action.equals("Run")) {
-            return run.getActiveFrame();
-        } else if (action.equals("Attack")) {
-            return attack.getActiveFrame();
-        } else if (action.equals("Jump")) {
-            return jump.getActiveFrame();
-        } else if (action.equals("Death")) {
-            return death.getActiveFrame();
-        } else return special.getActiveFrame();
+        return switch (action) {
+            case "Idle" -> idle.getActiveFrame();
+            case "Run" -> run.getActiveFrame();
+            case "Attack" -> attack.getActiveFrame();
+            case "Jump" -> jump.getActiveFrame();
+            case "Death" -> death.getActiveFrame();
+            default -> special.getActiveFrame();
+        };
     }
 
     //These functions are newly added to let the player turn left and right
