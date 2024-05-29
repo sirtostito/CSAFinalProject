@@ -10,6 +10,8 @@ import java.util.ArrayList;
 public class GraphicsPanel extends JPanel implements KeyListener, MouseListener, ActionListener {
     private BufferedImage background;
     private Player player;
+
+    private Gem gem;
     private boolean[] pressedKeys;
     private ArrayList<Coin> coins;
     private Timer timer;
@@ -22,6 +24,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+        gem = new Gem();
         anim = "Idle";
         player = new Player("src/Assets/Knight/Idle/KnightIdle1.png", name, "Knight");
         coins = new ArrayList<>();
@@ -56,7 +59,13 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
                 coins.remove(i);
                 i--;
             }
+            if (player.playerRect().intersects(gem.hitBox())) {
+                if (time == 60) {
+
+                }
+            }
         }
+        g.drawImage(gem.getGem(),(int) gem.getX(),(int) gem.getY(), gem.getWidth(), gem.getHeight(), null);
 
         // draw score
         g.setFont(new Font("Courier New", Font.BOLD, 24));
