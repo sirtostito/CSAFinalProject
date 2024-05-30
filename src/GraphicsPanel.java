@@ -10,8 +10,6 @@ import java.util.ArrayList;
 public class GraphicsPanel extends JPanel implements KeyListener, MouseListener, ActionListener {
     private BufferedImage background;
     private Player player;
-    private ArrayList<Enemies> enemies;
-    private int wave;
     private Gem gem;
     private boolean[] pressedKeys;
     private ArrayList<Coin> coins;
@@ -29,7 +27,6 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         anim = "Idle";
         player = new Player("src/Assets/Knight/Idle/KnightIdle1.png", name, "Knight");
         coins = new ArrayList<>();
-        enemies = new ArrayList<>();
         pressedKeys = new boolean[128];
         time = 0;
         timer = new Timer(1000, this); // this Timer will call the actionPerformed interface method every 1000ms = 1 second
