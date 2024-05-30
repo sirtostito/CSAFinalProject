@@ -6,26 +6,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Enemies {
-    private double moveAmt;
+    private double speed;
     private BufferedImage right;
     private boolean facingRight;
     private double xCoord;
     private double yCoord;
     private String sprite;
-    private ArrayList<Enemies> enemies; //move this to GraphicsPanel
     private Animation idle;
+    private int hp;
     private Animation run;
-    private Animation attack;
     private Animation death;
-    private Animation special;
-    private Animation damage;
-    public Enemies(String rightImg, String sprite, int moveAmt) {
-        enemies = new ArrayList<>();
+    public Enemies(String rightImg, String sprite) {
         facingRight = true;
+        this.speed = speed;
         xCoord = 90;
         yCoord = 90;
         this.sprite = sprite;
-        this.moveAmt = moveAmt;
         try {
             right = ImageIO.read(new File(rightImg));
         } catch (IOException e) {
@@ -33,7 +29,7 @@ public class Enemies {
         }
     }
 
-    public Rectangle coinRect() {
+    public Rectangle enemyRect() {
         int imageHeight = right.getHeight();
         int imageWidth = right.getWidth();
         Rectangle rect = new Rectangle((int) xCoord, (int) yCoord, imageWidth, imageHeight);
@@ -45,13 +41,9 @@ public class Enemies {
             return idle.getActiveFrame();
         } else if (action.equals("Run")) {
             return run.getActiveFrame();
-        } else if (action.equals("Attack")) {
-            return attack.getActiveFrame();
-        } else if (action.equals("Damage")) {
-            return damage.getActiveFrame();
-        } else if (action.equals("Death")) {
+        } else {
             return death.getActiveFrame();
-        } else return special.getActiveFrame();
+        }
     }
 
     public int getxCoord() {
@@ -66,10 +58,6 @@ public class Enemies {
         return (int) yCoord;
     }
 
-    public void enemyAdd(Enemies enemy) {
-        enemies.add(enemy);
-    }
-
     public void faceRight() {
         facingRight = true;
     }
@@ -79,26 +67,26 @@ public class Enemies {
     }
 
     public void moveRight() {
-        if (xCoord + moveAmt <= 920) {
-            xCoord += moveAmt;
+        if (xCoord + speed <= 920) {
+            xCoord += speed;
         }
     }
 
     public void moveLeft() {
-        if (xCoord - moveAmt >= 0) {
-            xCoord -= moveAmt;
+        if (xCoord - speed >= 0) {
+            xCoord -= speed;
         }
     }
 
     public void moveUp() {
-        if (yCoord - moveAmt >= 0) {
-            yCoord -= moveAmt;
+        if (yCoord - speed >= 0) {
+            yCoord -= speed;
         }
     }
 
     public void moveDown() {
-        if (yCoord + moveAmt <= 435) {
-            yCoord += moveAmt;
+        if (yCoord + speed <= 435) {
+            yCoord += speed;
         }
     }
 
