@@ -5,9 +5,9 @@ public class MainFrame implements Runnable {
     private GraphicsPanel panel;
 
     public MainFrame(String name) {
-        JFrame frame = new JFrame("Super Mario Game");
+        JFrame frame = new JFrame("Tower Defense Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(960, 580); // 540 height of image + 40 for window menu bar
+        frame.setSize(800, 800); // 540 height of image + 40 for window menu bar
         frame.setLocationRelativeTo(null); // auto-centers frame in screen
 
         // create and add panel

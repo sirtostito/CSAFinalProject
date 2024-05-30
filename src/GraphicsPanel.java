@@ -21,11 +21,11 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
 
     public GraphicsPanel(String name) {
         try {
-            background = ImageIO.read(new File("src/Assets/background.png"));
+            background = ImageIO.read(new File("src/Assets/maps/rsz_1mnqwyzz9e5r61.png"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-        gem = new Gem();
+//        gem = new Gem();
         anim = "Idle";
         player = new Player("src/Assets/Knight/Idle/KnightIdle1.png", name, "Knight");
         coins = new ArrayList<>();
@@ -61,13 +61,13 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
                 coins.remove(i);
                 i--;
             }
-            if (player.playerRect().intersects(gem.hitBox())) {
-                if (time == 60) {
-
-                }
-            }
+//            if (player.playerRect().intersects(gem.hitBox())) {
+//                if (time == 60) {
+//
+//                }
+//            }
         }
-        g.drawImage(gem.getGem(),(int) gem.getX(),(int) gem.getY(), gem.getWidth(), gem.getHeight(), null);
+//        g.drawImage(gem.getGem(),(int) gem.getX(),(int) gem.getY(), gem.getWidth(), gem.getHeight(), null);
 
         // draw score
         g.setFont(new Font("Courier New", Font.BOLD, 24));
