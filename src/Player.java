@@ -14,25 +14,24 @@ public class Player {
     private int score;
     private String name;
     private Animation idle;
-    private Animation run;
-    private Animation jump;
-    private Animation roll;
+//    private Animation run;
+////    private Animation jump;
+//    private Animation roll;
     private Animation attack;
-    private Animation death;
-    private Animation special;
-    private String sprite;
-    private boolean stun;
+//    private Animation death;
+//    private Animation special;
+//    private String sprite;
+//    private boolean stun;
 
-    public Player(String rightImg, String name, String sprite) {
-        this.name = name;
+    public Player(double x, double y) {
         facingRight = true;
-        xCoord = 50; // starting position is (50, 435), right on top of ground
-        yCoord = 435;
+        xCoord = x; // starting position is (50, 435), right on top of ground
+        yCoord = y;
         score = 0;
-        stun = false;
-        this.sprite = sprite;
+//        stun = false;
+//        this.sprite = sprite;
         try {
-            right = ImageIO.read(new File(rightImg));
+            right = ImageIO.read(new File(""));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -41,7 +40,7 @@ public class Player {
         //By creating all the BufferedImages beforehand, we don't have to worry about lagging trying to read image files during gameplay
         ArrayList<BufferedImage> idle_animation = new ArrayList<>();
         for (int i = 1; i <= 15; i++) {
-            String filename = "src/Assets/" + sprite + "/Idle/" + sprite + "Idle" + i + ".png";
+            String filename = "src/Assets/" + "" + "/Idle/" + "" + "Idle" + i + ".png";
             try {
                 idle_animation.add(ImageIO.read(new File(filename)));
             }
@@ -51,21 +50,21 @@ public class Player {
         }
         idle = new Animation(idle_animation,66);
 
-        ArrayList<BufferedImage> run_animation = new ArrayList<>();
-        for (int i = 1; i <= 8; i++) {
-            String filename = "src/Assets/" + sprite + "/Run/" + sprite + "Run" + i + ".png";
-            try {
-                run_animation.add(ImageIO.read(new File(filename)));
-            }
-            catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        run = new Animation(run_animation,66);
+//        ArrayList<BufferedImage> run_animation = new ArrayList<>();
+//        for (int i = 1; i <= 8; i++) {
+//            String filename = "src/Assets/" + sprite + "/Run/" + sprite + "Run" + i + ".png";
+//            try {
+//                run_animation.add(ImageIO.read(new File(filename)));
+//            }
+//            catch (IOException e) {
+//                System.out.println(e.getMessage());
+//            }
+//        }
+//        run = new Animation(run_animation,66);
 
         ArrayList<BufferedImage> attack1_animation = new ArrayList<>();
         for (int i = 1; i <= 22; i++) {
-            String filename = "src/Assets/" + sprite + "/Attack/" + sprite + "Attack" + i + ".png";
+            String filename = "src/Assets/" + "" + "/Attack/" + "" + "Attack" + i + ".png";
             try {
                 attack1_animation.add(ImageIO.read(new File(filename)));
             }
@@ -75,41 +74,41 @@ public class Player {
         }
         attack = new Animation(attack1_animation,66);
 
-        ArrayList<BufferedImage> death_animation = new ArrayList<>();
-        for (int i = 1; i <= 15; i++) {
-            String filename = "src/Assets/" + sprite + "/Death/" + sprite + "_Death" + i + ".png";
-            try {
-                death_animation.add(ImageIO.read(new File(filename)));
-            }
-            catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        death = new Animation(death_animation,66);
+//        ArrayList<BufferedImage> death_animation = new ArrayList<>();
+//        for (int i = 1; i <= 15; i++) {
+//            String filename = "src/Assets/" + sprite + "/Death/" + sprite + "_Death" + i + ".png";
+//            try {
+//                death_animation.add(ImageIO.read(new File(filename)));
+//            }
+//            catch (IOException e) {
+//                System.out.println(e.getMessage());
+//            }
+//        }
+//        death = new Animation(death_animation,66);
 
-        ArrayList<BufferedImage> jump_animation = new ArrayList<>();
-        for (int i = 1; i <= 14; i++) {
-            String filename = "src/Assets/" + sprite + "/Jump/" + sprite + "Jump" + i + ".png";
-            try {
-                jump_animation.add(ImageIO.read(new File(filename)));
-            }
-            catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        jump = new Animation(jump_animation,66);
-
-        ArrayList<BufferedImage> special_animation = new ArrayList<>();
-        for (int i = 1; i <= 7; i++) {
-            String filename = "src/Assets/" + sprite + "/Special/" + sprite + "Special" + i + ".png";
-            try {
-                special_animation.add(ImageIO.read(new File(filename)));
-            }
-            catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        special = new Animation(special_animation,66);
+//        ArrayList<BufferedImage> jump_animation = new ArrayList<>();
+//        for (int i = 1; i <= 14; i++) {
+//            String filename = "src/Assets/" + sprite + "/Jump/" + sprite + "Jump" + i + ".png";
+//            try {
+//                jump_animation.add(ImageIO.read(new File(filename)));
+//            }
+//            catch (IOException e) {
+//                System.out.println(e.getMessage());
+//            }
+//        }
+//        jump = new Animation(jump_animation,66);
+//
+//        ArrayList<BufferedImage> special_animation = new ArrayList<>();
+//        for (int i = 1; i <= 7; i++) {
+//            String filename = "src/Assets/" + sprite + "/Special/" + sprite + "Special" + i + ".png";
+//            try {
+//                special_animation.add(ImageIO.read(new File(filename)));
+//            }
+//            catch (IOException e) {
+//                System.out.println(e.getMessage());
+//            }
+//        }
+//        special = new Animation(special_animation,66);
     }
 
     //This function is changed from the previous version to let the player turn left and right
@@ -143,37 +142,37 @@ public class Player {
         facingRight = false;
     }
 
-    public void moveRight() {
-        if (xCoord + MOVE_AMT <= 780) {
-            xCoord += MOVE_AMT;
-        }
-    }
-
-    public void moveLeft() {
-        if (xCoord - MOVE_AMT >= 0) {
-            xCoord -= MOVE_AMT;
-        }
-    }
-
-    public void moveUp() {
-        if (yCoord - MOVE_AMT >= 0) {
-            yCoord -= MOVE_AMT;
-        }
-    }
-
-    public void moveDown() {
-        if (yCoord + MOVE_AMT <= 780) {
-            yCoord += MOVE_AMT;
-        }
-    }
-
-    public void turn() {
-        if (facingRight) {
-            faceLeft();
-        } else {
-            faceRight();
-        }
-    }
+//    public void moveRight() {
+//        if (xCoord + MOVE_AMT <= 780) {
+//            xCoord += MOVE_AMT;
+//        }
+//    }
+//
+//    public void moveLeft() {
+//        if (xCoord - MOVE_AMT >= 0) {
+//            xCoord -= MOVE_AMT;
+//        }
+//    }
+//
+//    public void moveUp() {
+//        if (yCoord - MOVE_AMT >= 0) {
+//            yCoord -= MOVE_AMT;
+//        }
+//    }
+//
+//    public void moveDown() {
+//        if (yCoord + MOVE_AMT <= 780) {
+//            yCoord += MOVE_AMT;
+//        }
+//    }
+//
+//    public void turn() {
+//        if (facingRight) {
+//            faceLeft();
+//        } else {
+//            faceRight();
+//        }
+//    }
 
     public void collectCoin() {
         score++;
@@ -182,11 +181,12 @@ public class Player {
     public BufferedImage getPlayerImage(String action) {
         return switch (action) {
             case "Idle" -> idle.getActiveFrame();
-            case "Run" -> run.getActiveFrame();
+//            case "Run" -> run.getActiveFrame();
             case "Attack" -> attack.getActiveFrame();
-            case "Jump" -> jump.getActiveFrame();
-            case "Death" -> death.getActiveFrame();
-            default -> special.getActiveFrame();
+//            case "Jump" -> jump.getActiveFrame();
+//            case "Death" -> death.getActiveFrame();
+//            default -> special.getActiveFrame();
+            default -> throw new IllegalStateException("Unexpected value: " + action);
         };
     }
 

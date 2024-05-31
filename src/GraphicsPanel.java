@@ -16,6 +16,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     private Timer timer;
     private int time;
     private String anim;
+    private ArrayList<Player> pawns;
 
     public GraphicsPanel(String name) {
         try {
@@ -25,7 +26,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         }
 //        gem = new Gem();
         anim = "Idle";
-        player = new Player("src/Assets/Knight/Idle/KnightIdle1.png", name, "Knight");
+//        player = new Player("src/Assets/Knight/Idle/KnightIdle1.png", name, "Knight");
         coins = new ArrayList<>();
         pressedKeys = new boolean[128];
         time = 0;
@@ -64,6 +65,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
 //                }
 //            }
         }
+
 //        g.drawImage(gem.getGem(),(int) gem.getX(),(int) gem.getY(), gem.getWidth(), gem.getHeight(), null);
 
         // draw score
@@ -71,35 +73,35 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         g.drawString(player.getName() + "'s Score: " + player.getScore(), 20, 40);
         g.drawString("Time: " + time, 20, 70);
 
-        // player moves left (A)
-        if (pressedKeys[65]) {
-            anim = "Run";
-            player.faceLeft();
-            player.moveLeft();
-        }
-
-        // player moves right (D)
-        if (pressedKeys[68]) {
-            anim = "Run";
-            player.faceRight();
-            player.moveRight();
-        }
-
-        // player moves up (W)
-        if (pressedKeys[87]) {
-            anim = "Run";
-            player.moveUp();
-        }
-
-        // player moves down (S)
-        if (pressedKeys[83]) {
-            anim = "Run";
-            player.moveDown();
-        }
-
-        if (pressedKeys[80]) {
-            anim = "Attack";
-        }
+//        // player moves left (A)
+//        if (pressedKeys[65]) {
+//            anim = "Run";
+//            player.faceLeft();
+//            player.moveLeft();
+//        }
+//
+//        // player moves right (D)
+//        if (pressedKeys[68]) {
+//            anim = "Run";
+//            player.faceRight();
+//            player.moveRight();
+//        }
+//
+//        // player moves up (W)
+//        if (pressedKeys[87]) {
+//            anim = "Run";
+//            player.moveUp();
+//        }
+//
+//        // player moves down (S)
+//        if (pressedKeys[83]) {
+//            anim = "Run";
+//            player.moveDown();
+//        }
+//
+//        if (pressedKeys[80]) {
+//            anim = "Attack";
+//        }
     }
 
     // ----- KeyListener interface methods -----
@@ -126,13 +128,13 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     public void mouseReleased(MouseEvent e) {
         if (e.getButton() == MouseEvent.BUTTON1) {  // left mouse click
             Point mouseClickLocation = e.getPoint();
-            Coin coin = new Coin(mouseClickLocation.x, mouseClickLocation.y);
-            coins.add(coin);
-        } else {
-            Point mouseClickLocation = e.getPoint();
-            if (player.playerRect().contains(mouseClickLocation)) {
-                player.turn();
-            }
+            Player player = new Player(mouseClickLocation.x, mouseClickLocation.y);
+            pawns.add(player);
+//        } else {
+//            Point mouseClickLocation = e.getPoint();
+//            if (player.playerRect().contains(mouseClickLocation)) {
+////                player.turn();
+//            }
         }
     }
 
