@@ -6,30 +6,30 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Player {
-    private final double MOVE_AMT = 0.3;
     private BufferedImage right;
     private boolean facingRight;
     private double xCoord;
     private double yCoord;
-    private int score;
+    private int upgrade;
     private String name;
     private Animation idle;
 //    private Animation run;
 ////    private Animation jump;
 //    private Animation roll;
-    private Animation attack;
+    private Animation attackOne;
+    private Animation attackTwo;
+    private Animation attackThree;
 //    private Animation death;
 //    private Animation special;
-//    private String sprite;
+    private String sprite;
 //    private boolean stun;
 
-    public Player(double x, double y) {
+    public Player(double x, double y, String sprite) {
         facingRight = true;
         xCoord = x; // starting position is (50, 435), right on top of ground
         yCoord = y;
-        score = 0;
-//        stun = false;
-//        this.sprite = sprite;
+        upgrade = 0;
+        this.sprite = sprite;
         try {
             right = ImageIO.read(new File(""));
         } catch (IOException e) {
