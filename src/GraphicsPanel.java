@@ -17,6 +17,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     private int time;
     private String anim;
     private ArrayList<Player> pawns;
+    private WaveManager waveManager;
 
     public GraphicsPanel(String name) {
         try {
@@ -25,6 +26,8 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
             System.out.println(e.getMessage());
         }
 //        gem = new Gem();
+        waveManager = new WaveManager();
+        pawns = new ArrayList<>();
         anim = "Idle";
 //        player = new Player("src/Assets/Knight/Idle/KnightIdle1.png", name, "Knight");
         coins = new ArrayList<>();
@@ -46,32 +49,28 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         //Combined with the modified functions in the Player class, this does not modify the actual player image
         //Instead, it allows us to modify how the player image is drawn on the graphics object
         //However, this could potentially introduce desyncs between the graphics and the game logic
-        g.drawImage(player.getPlayerImage(anim), player.getxCoord(), player.getyCoord(), player.getWidth(), player.getHeight(), null);
         anim = "Idle";
         // this loop does two things:  it draws each Coin that gets placed with mouse clicks,
         // and it also checks if the player has "intersected" (collided with) the Coin, and if so,
         // the score goes up and the Coin is removed from the arraylist
-        for (int i = 0; i < coins.size(); i++) {
-            Coin coin = coins.get(i);
-            g.drawImage(coin.getImage(), coin.getxCoord(), coin.getyCoord(), null); // draw Coin
-            if (player.playerRect().intersects(coin.coinRect())) { // check for collision
-                player.collectCoin();
-                coins.remove(i);
-                i--;
-            }
-//            if (player.playerRect().intersects(gem.hitBox())) {
-//                if (time == 60) {
-//
-//                }
+
+
+//        for (int i = 0; i < coins.size(); i++) {
+//            Coin coin = coins.get(i);
+//            g.drawImage(coin.getImage(), coin.getxCoord(), coin.getyCoord(), null); // draw Coin
+//            if (player.playerRect().intersects(coin.coinRect())) { // check for collision
+//                coins.remove(i);
+//                i--;
 //            }
-        }
+//        }
 
 //        g.drawImage(gem.getGem(),(int) gem.getX(),(int) gem.getY(), gem.getWidth(), gem.getHeight(), null);
 
         // draw score
         g.setFont(new Font("Courier New", Font.BOLD, 24));
-        g.drawString(player.getName() + "'s Score: " + player.getScore(), 20, 40);
-        g.drawString("Time: " + time, 20, 70);
+//        g.drawString(player.getName() + "'s Score: " + player.getScore(), 20, 40);
+        g.drawString("Time: " + time, 20, 30);
+        g.drawString("Wave: " + waveManager.getWave(), 330, 30);
 
 //        // player moves left (A)
 //        if (pressedKeys[65]) {
@@ -128,7 +127,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     public void mouseReleased(MouseEvent e) {
         if (e.getButton() == MouseEvent.BUTTON1) {  // left mouse click
             Point mouseClickLocation = e.getPoint();
-            Player player = new Player(mouseClickLocation.x, mouseClickLocation.y);
+//            Player player = new Player(mouseClickLocation.x, mouseClickLocation.y);
             pawns.add(player);
 //        } else {
 //            Point mouseClickLocation = e.getPoint();

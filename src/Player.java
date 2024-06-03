@@ -72,7 +72,7 @@ public class Player {
                 System.out.println(e.getMessage());
             }
         }
-        attack = new Animation(attack1_animation,66);
+        attackOne = new Animation(attack1_animation,66);
 
 //        ArrayList<BufferedImage> death_animation = new ArrayList<>();
 //        for (int i = 1; i <= 15; i++) {
@@ -126,9 +126,9 @@ public class Player {
         return (int) yCoord;
     }
 
-    public int getScore() {
-        return score;
-    }
+//    public int getScore() {
+//        return score;
+//    }
 
     public String getName() {
         return name;
@@ -174,15 +174,15 @@ public class Player {
 //        }
 //    }
 
-    public void collectCoin() {
-        score++;
-    }
+//    public void collectCoin() {
+//        score++;
+//    }
 
     public BufferedImage getPlayerImage(String action) {
         return switch (action) {
             case "Idle" -> idle.getActiveFrame();
 //            case "Run" -> run.getActiveFrame();
-            case "Attack" -> attack.getActiveFrame();
+//            case "Attack" -> attack.getActiveFrame();
 //            case "Jump" -> jump.getActiveFrame();
 //            case "Death" -> death.getActiveFrame();
 //            default -> special.getActiveFrame();

@@ -14,7 +14,7 @@ public class MistMonster extends Enemies{
         hp = MAX_HP;
     }
 
-    private void start() {
+    public void start() {
         while (hp > 0) {
 
         }
@@ -31,7 +31,7 @@ public class MistMonster extends Enemies{
         }
     }
 
-    private void death() {
+    public void death() {
         WaveManager.enemies.remove(this);
     }
 }

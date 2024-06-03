@@ -18,20 +18,11 @@ public class RatMage extends Enemies {
         return hp + " / " + MAX_HP;
     }
 
-    private void start() {
-        while (hp > 0) {
-
-        }
-    }
-
-    public void damaged(double damage) {
-        hp -= damage;
+    @Override
+    public void start() {
+        super.start();
         if (hp <= 0) {
-            death();
+            super.death(5);
         }
-    }
-
-    private void death() {
-        WaveManager.enemies.remove(this);
     }
 }

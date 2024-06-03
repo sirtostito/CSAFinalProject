@@ -5,6 +5,8 @@ public class WaveManager {
     private int wave;
     private ArrayList<Enemies> allEnemies;
     public static ArrayList<Enemies> enemies;
+    public static ArrayList<Player> chars;
+
     public WaveManager() {
         wave = 0;
         enemies = new ArrayList<>();
@@ -41,6 +43,5 @@ public class WaveManager {
     }
     public void spawn() {
         ArrayList<Enemies> array = new ArrayList<>(enemies);
-
     }
 }

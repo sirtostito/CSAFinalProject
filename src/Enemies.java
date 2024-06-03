@@ -13,7 +13,7 @@ public class Enemies {
     private double yCoord;
     private String sprite;
     private Animation idle;
-    private int hp;
+    private double hp;
     private Animation run;
     private Animation death;
     public Enemies(String rightImg, String sprite) {
@@ -27,6 +27,24 @@ public class Enemies {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public void start() {
+        while (hp > 0) {
+
+        }
+    }
+
+    public void damaged(double damage) {
+        hp -= damage;
+    }
+
+    public void death(int frames) {
+        death.resetFrames();
+        for (int i = 1; i <= frames; i++) {
+            getEnemyImage("Death");
+        }
+        WaveManager.enemies.remove(this);
     }
 
     public Rectangle enemyRect() {
