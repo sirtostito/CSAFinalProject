@@ -18,6 +18,8 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     private String anim;
     private ArrayList<Player> pawns;
     private WaveManager waveManager;
+    private int tempX;
+    private int tempY;
 
     public GraphicsPanel(String name) {
         try {
@@ -71,7 +73,13 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
 //        g.drawString(player.getName() + "'s Score: " + player.getScore(), 20, 40);
         g.drawString("Time: " + time, 20, 30);
         g.drawString("Wave: " + waveManager.getWave(), 330, 30);
+        g.drawString("Cord: " + tempX + ", " + tempY, 550, 30);
+        Enemies test = new Enemies("src/Assets/")
+        g.drawImage()
 
+        for (Enemies enemy : WaveManager.enemies) {
+            g.drawImage(enemy.getEnemyImage(), enemy.getxCoord(), enemy.getyCoord(), null);
+        }
 //        // player moves left (A)
 //        if (pressedKeys[65]) {
 //            anim = "Run";
@@ -103,6 +111,15 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
 //        }
     }
 
+    private void updateEnemyLocations() {
+        for (Enemies enemy : enemies) {
+            if (enemy.getHealth() > 0) {
+                enemy.move();
+            }
+
+        }
+    }
+
     // ----- KeyListener interface methods -----
     public void keyTyped(KeyEvent e) { } // unimplemented
 
@@ -127,8 +144,10 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     public void mouseReleased(MouseEvent e) {
         if (e.getButton() == MouseEvent.BUTTON1) {  // left mouse click
             Point mouseClickLocation = e.getPoint();
+            tempX = mouseClickLocation.x;
+            tempY = mouseClickLocation.y;
 //            Player player = new Player(mouseClickLocation.x, mouseClickLocation.y);
-            pawns.add(player);
+//            pawns.add(player);
 //        } else {
 //            Point mouseClickLocation = e.getPoint();
 //            if (player.playerRect().contains(mouseClickLocation)) {
@@ -145,6 +164,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof Timer) {
             time++;
+            updateEnemyLocations();
         }
     }
 }

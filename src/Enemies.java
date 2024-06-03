@@ -19,8 +19,8 @@ public class Enemies {
     public Enemies(String rightImg, String sprite) {
         facingRight = true;
         this.speed = speed;
-        xCoord = 90;
-        yCoord = 90;
+        xCoord = 713;
+        yCoord = 222;
         this.sprite = sprite;
         try {
             right = ImageIO.read(new File(rightImg));
@@ -30,9 +30,6 @@ public class Enemies {
     }
 
     public void start() {
-        while (hp > 0) {
-
-        }
     }
 
     public void damaged(double damage) {
