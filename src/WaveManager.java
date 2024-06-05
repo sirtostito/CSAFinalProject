@@ -24,19 +24,19 @@ public class WaveManager {
                 } else if (strength == 2) {
                     enemies.add(new RatMage("src/Assets/RatMage/Run/RatMageRun1.png","RatMage",wave));
                 } else if (strength >= 3 && strength <= 5) {
-                    enemies.add(); //beginner to intermediate
+                    enemies.add(new Hoodlum("src/Assets/Hoodlum/Run/HoodlumRun1.png","Hoodlum",wave));
                 } else if (strength >= 6 && strength <= 10) {
-                    enemies.add(); // intermediate
+                    enemies.add(new SkullWolf("src/Assets/SkullWolf/Run/SkullWolfRun1.png","SkullWolf",wave));
                 } else if (strength >= 11 && strength <= 15) {
-                    enemies.add(); // intermediate
+                    enemies.add(new Golem("src/Assets/Golem/Run/GolemRun1.png","Golem",wave)); // intermediate
                 } else if (strength >= 16 && strength <= 22) {
                     enemies.add(new Cacodaemon("src/Assets/Cacodaemon/Run/CacodaemonRun1","Cacodaemon",wave));
                 } else if (strength >= 23 && strength <= 29) {
-                    enemies.add(); // intermediate to high
+                    enemies.add(new Death("src/Assets/Death/Run/DeathRun1.png","Death",wave));
                 } else if (strength >= 30 && strength <= 40) {
-                    enemies.add(); // high
+                    enemies.add(new Minotaur("src/Assets/Minotaur/Run/MinotaurRun1.png","Minotaur",wave));
                 } else if (strength >= 41 && strength <= 50) {
-                    enemies.add(); // high
+                    enemies.add(new NightBorne("src/Assets/NightBorne/Run/NightBorneRun1.png","NightBorne",wave));
                 }
             }
             enemies.add(); // boss monster
@@ -48,9 +48,9 @@ public class WaveManager {
                 } else if (strength <= 5) {
                     enemies.add(new RatMage("src/Assets/RatMage/Run/RatMageRun1.png","RatMage",wave));
                 } else if (strength <= 10) {
-                    enemies.add(); //beginner to intermediate
+                    enemies.add(new Hoodlum("src/Assets/Hoodlum/Run/HoodlumRun1.png","Hoodlum",wave));
                 } else if (strength <= 25) {
-                    enemies.add(); // intermediate
+                    enemies.add(new SkullWolf("src/Assets/SkullWolf/Run/SkullWolfRun1.png","SkullWolf",wave));
                 } else if (strength <= 40) {
                     enemies.add(); // intermediate
                 } else if (strength <= 45) {
@@ -67,9 +67,9 @@ public class WaveManager {
                 } else if (strength <= 10) {
                     enemies.add(new RatMage("src/Assets/RatMage/Run/RatMageRun1.png","RatMage",wave));
                 } else if (strength <= 20) {
-                    enemies.add(); //beginner to intermediate
+                    enemies.add(new Hoodlum("src/Assets/Hoodlum/Run/HoodlumRun1.png","Hoodlum",wave));
                 } else if (strength <= 35) {
-                    enemies.add(); // intermediate
+                    enemies.add(new SkullWolf("src/Assets/SkullWolf/Run/SkullWolfRun1.png","SkullWolf",wave));
                 } else if (strength <= 50) {
                     enemies.add(); // intermediate
                 }
@@ -82,7 +82,7 @@ public class WaveManager {
                 } else if (strength <= 30) {
                     enemies.add(new RatMage("src/Assets/RatMage/Run/RatMageRun1.png","RatMage",wave));
                 } else if (strength <= 50) {
-                    enemies.add(); //beginner to intermediate
+                    enemies.add(new Hoodlum("src/Assets/Hoodlum/Run/HoodlumRun1.png","Hoodlum",wave));
                 }
             }
         } else if (wave == 1) {
