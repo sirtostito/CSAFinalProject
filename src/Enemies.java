@@ -16,11 +16,13 @@ public class Enemies {
     private double hp;
     private Animation run;
     private Animation death;
+    private boolean spawned;
     public Enemies(String rightImg, String sprite) {
         facingRight = true;
         this.speed = speed;
-        xCoord = 713;
-        yCoord = 222;
+        xCoord = 2000;
+        yCoord = 2000;
+        spawned = false;
         this.sprite = sprite;
         try {
             right = ImageIO.read(new File(rightImg));
@@ -30,6 +32,44 @@ public class Enemies {
     }
 
     public void start() {
+        spawned = true;
+        xCoord = 713;
+        yCoord = 222;
+    }
+
+    public void move() {
+        if (hp > 0) {
+            if (yCoord == 222 && xCoord <= 713 && xCoord >= 600) {
+                moveLeft();
+            }
+            if (xCoord <= 601 && xCoord >= 599 && yCoord <= 335 && yCoord >= 222) {
+                moveDown();
+            }
+            if (yCoord <= 336 && yCoord >= 334 && xCoord <= 601 && xCoord >= 375) {
+                moveLeft();
+            }
+            if (yCoord >= 190 && yCoord <= 336 && xCoord <= 376 && xCoord >= 374) {
+                moveUp();
+            }
+            if (xCoord >= 124 && xCoord <= 376 && yCoord <= 191 && yCoord >= 189) {
+                moveLeft();
+            }
+            if (xCoord >= 123 && xCoord <= 125 && yCoord <= 470 && yCoord >= 189) {
+                moveDown();
+            }
+            if (xCoord <= 360 && xCoord >= 123 && yCoord <= 471 && yCoord >= 469) {
+                moveRight();
+            }
+            if (yCoord <= 585 && yCoord >= 469 && xCoord <= 361 && xCoord >= 359) {
+                moveDown();
+            }
+            if (xCoord <= 435 && xCoord >= 359 && yCoord >= 584 && yCoord <= 586) {
+                moveRight();
+            }
+            if (yCoord <= 720 && yCoord >= 584 && xCoord <= 436 && xCoord >= 434) {
+                moveDown();
+            }
+        }
     }
 
     public void damaged(double damage) {
@@ -41,7 +81,8 @@ public class Enemies {
         for (int i = 1; i <= frames; i++) {
             getEnemyImage("Death");
         }
-        WaveManager.enemies.remove(this);
+        spawned = false;
+        GraphicsPanel.waveManager.removeEnemy(this);
     }
 
     public Rectangle enemyRect() {
@@ -52,9 +93,7 @@ public class Enemies {
     }
 
     public BufferedImage getEnemyImage(String action) {
-        if (action.equals("Idle")) {
-            return idle.getActiveFrame();
-        } else if (action.equals("Run")) {
+        if (action.equals("Run")) {
             return run.getActiveFrame();
         } else {
             return death.getActiveFrame();
@@ -111,5 +150,9 @@ public class Enemies {
         } else {
             faceRight();
         }
+    }
+
+    public boolean isSpawned() {
+        return spawned;
     }
 }

@@ -13,7 +13,14 @@ public class Minotaur extends Enemies {
         hp = MAX_HP;
         start();
     }
-
+    @Override
+    public BufferedImage getEnemyImage(String action) {
+        if (action.equals("Run")) {
+            return Run.getActiveFrame();
+        } else {
+            return death.getActiveFrame();
+        }
+    }
     public String getHP() {
         return hp + " / " + MAX_HP;
     }

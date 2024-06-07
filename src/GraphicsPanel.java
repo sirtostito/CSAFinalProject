@@ -17,7 +17,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     private int time;
     private String anim;
     private ArrayList<Player> pawns;
-    private WaveManager waveManager;
+    public static WaveManager waveManager;
     private int tempX;
     private int tempY;
 
@@ -74,12 +74,13 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         g.drawString("Time: " + time, 20, 30);
         g.drawString("Wave: " + waveManager.getWave(), 330, 30);
         g.drawString("Cord: " + tempX + ", " + tempY, 550, 30);
-        Enemies test = new Enemies("src/Assets/")
-        g.drawImage()
+//        Enemies test = new Enemies("src/Assets/")
+//        g.drawImage()
 
-        for (Enemies enemy : WaveManager.enemies) {
-            g.drawImage(enemy.getEnemyImage(), enemy.getxCoord(), enemy.getyCoord(), null);
+        for (Enemies enemy : waveManager.getEnemies()) {
+            g.drawImage(enemy.getEnemyImage("Run"), enemy.getxCoord(), enemy.getyCoord(), null);
         }
+        updateEnemyLocations();
 //        // player moves left (A)
 //        if (pressedKeys[65]) {
 //            anim = "Run";
@@ -112,8 +113,8 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     }
 
     private void updateEnemyLocations() {
-        for (Enemies enemy : enemies) {
-            if (enemy.getHealth() > 0) {
+        for (Enemies enemy : waveManager.getEnemies()) {
+            if (enemy.isSpawned()) {
                 enemy.move();
             }
 
