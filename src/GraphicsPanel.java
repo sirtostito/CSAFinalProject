@@ -78,9 +78,9 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
 //        g.drawImage()
 
         for (Enemies enemy : waveManager.getEnemies()) {
-            g.drawImage(enemy.getEnemyImage("Run"), enemy.getxCoord(), enemy.getyCoord(), null);
+            updateEnemyLocations();
+            g.drawImage(enemy.getEnemyImage("Run"), enemy.getxCoord(), enemy.getyCoord(), enemy.getWidth(), enemy.getHeight(),null);
         }
-        updateEnemyLocations();
 //        // player moves left (A)
 //        if (pressedKeys[65]) {
 //            anim = "Run";
@@ -117,7 +117,6 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
             if (enemy.isSpawned()) {
                 enemy.move();
             }
-
         }
     }
 

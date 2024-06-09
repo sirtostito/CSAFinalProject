@@ -64,7 +64,7 @@ public class Player {
 
         ArrayList<BufferedImage> attack1_animation = new ArrayList<>();
         for (int i = 1; i <= 22; i++) {
-            String filename = "src/Assets/" + "" + "/Attack/" + "" + "Attack" + i + ".png";
+            String filename = "src/Assets/Attack/Attack" + i + ".png";
             try {
                 attack1_animation.add(ImageIO.read(new File(filename)));
             }

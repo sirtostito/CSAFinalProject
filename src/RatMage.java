@@ -13,7 +13,7 @@ public class RatMage extends Enemies {
     private Animation run;
     private Animation death;
     public RatMage(String rightImg, String sprite, int wave) {
-        super(rightImg, sprite);
+        super(rightImg, sprite, 9 + wave * wave/5.0, 0.05);
         this.wave = wave;
         MAX_HP = 9 + wave * wave/5.0;
         DAMAGE = 5 + wave * wave/5.0;
@@ -55,5 +55,10 @@ public class RatMage extends Enemies {
 
     public void death() {
         super.death(5);
+    }
+
+    @Override
+    public int getyCoord() {
+        return super.getyCoord() - 25;
     }
 }

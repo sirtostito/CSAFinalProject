@@ -13,7 +13,7 @@ public class NightBorne extends Enemies {
     private Animation run;
     private Animation death;
     public NightBorne(String rightImg, String sprite, int wave) {
-        super(rightImg, sprite);
+        super(rightImg, sprite, 20 + wave * wave/5.0, 0.08);
         this.wave = wave;
         MAX_HP = 20 + wave * wave/5.0;
         DAMAGE = 30 + wave * wave/5.0;
@@ -55,5 +55,18 @@ public class NightBorne extends Enemies {
 
     public void death() {
         super.death(23);
+    }
+
+    @Override
+    public int getxCoord() {
+        if (super.isFacingRight()) {
+            return (int) super.getxCoord() - 30;
+        } else {
+            return (int) (super.getxCoord() - 20);
+        }
+    }
+    @Override
+    public int getyCoord() {
+        return super.getyCoord() - 45;
     }
 }

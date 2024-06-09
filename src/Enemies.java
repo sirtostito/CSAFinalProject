@@ -17,17 +17,18 @@ public class Enemies {
     private Animation run;
     private Animation death;
     private boolean spawned;
-    public Enemies(String rightImg, String sprite) {
-        facingRight = true;
+    public Enemies(String rightImg, String sprite, double hp, double speed) {
+        facingRight = false;
         this.speed = speed;
         xCoord = 2000;
         yCoord = 2000;
         spawned = false;
         this.sprite = sprite;
+        this.hp = hp;
         try {
             right = ImageIO.read(new File(rightImg));
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println(e.getMessage() + " " + this.sprite);
         }
     }
 
@@ -39,34 +40,44 @@ public class Enemies {
 
     public void move() {
         if (hp > 0) {
-            if (yCoord == 222 && xCoord <= 713 && xCoord >= 600) {
+            if (yCoord >= 221 && yCoord <= 223 && xCoord <= 713 && xCoord >= 600) {
+                facingRight = false;
                 moveLeft();
             }
             if (xCoord <= 601 && xCoord >= 599 && yCoord <= 335 && yCoord >= 222) {
+                facingRight = false;
                 moveDown();
             }
-            if (yCoord <= 336 && yCoord >= 334 && xCoord <= 601 && xCoord >= 375) {
+            if (yCoord <= 336 && yCoord >= 334 && xCoord <= 601 && xCoord >= 360) {
+                facingRight = false;
                 moveLeft();
             }
-            if (yCoord >= 190 && yCoord <= 336 && xCoord <= 376 && xCoord >= 374) {
+            if (yCoord >= 190 && yCoord <= 336 && xCoord <= 361 && xCoord >= 359) {
+                facingRight = false;
                 moveUp();
             }
-            if (xCoord >= 124 && xCoord <= 376 && yCoord <= 191 && yCoord >= 189) {
+            if (xCoord >= 124 && xCoord <= 361 && yCoord <= 191 && yCoord >= 189) {
+                facingRight = false;
                 moveLeft();
             }
             if (xCoord >= 123 && xCoord <= 125 && yCoord <= 470 && yCoord >= 189) {
+                facingRight = false;
                 moveDown();
             }
             if (xCoord <= 360 && xCoord >= 123 && yCoord <= 471 && yCoord >= 469) {
+                facingRight = true;
                 moveRight();
             }
             if (yCoord <= 585 && yCoord >= 469 && xCoord <= 361 && xCoord >= 359) {
+                facingRight = true;
                 moveDown();
             }
             if (xCoord <= 435 && xCoord >= 359 && yCoord >= 584 && yCoord <= 586) {
+                facingRight = true;
                 moveRight();
             }
             if (yCoord <= 720 && yCoord >= 584 && xCoord <= 436 && xCoord >= 434) {
+                facingRight = true;
                 moveDown();
             }
         }
@@ -100,11 +111,15 @@ public class Enemies {
         }
     }
 
+    public boolean isFacingRight() {
+        return facingRight;
+    }
+
     public int getxCoord() {
         if (facingRight) {
             return (int) xCoord;
         } else {
-            return (int) (xCoord + (getEnemyImage("Idle").getWidth()));
+            return (int) (xCoord + (getEnemyImage("Run").getWidth()));
         }
     }
 
@@ -112,47 +127,39 @@ public class Enemies {
         return (int) yCoord;
     }
 
-    public void faceRight() {
-        facingRight = true;
-    }
-
-    public void faceLeft() {
-        facingRight = false;
-    }
-
     public void moveRight() {
-        if (xCoord + speed <= 920) {
-            xCoord += speed;
-        }
+        xCoord += speed;
     }
 
     public void moveLeft() {
-        if (xCoord - speed >= 0) {
-            xCoord -= speed;
-        }
+        xCoord -= speed;
     }
 
     public void moveUp() {
-        if (yCoord - speed >= 0) {
-            yCoord -= speed;
-        }
+        yCoord -= speed;
     }
 
     public void moveDown() {
-        if (yCoord + speed <= 435) {
-            yCoord += speed;
-        }
+        yCoord += speed;
     }
 
-    public void turn() {
+    public int getHeight() {
+        return getEnemyImage("Idle").getHeight();
+    }
+
+    public int getWidth() {
         if (facingRight) {
-            faceLeft();
+            return getEnemyImage("Idle").getWidth();
         } else {
-            faceRight();
+            return getEnemyImage("Idle").getWidth() * -1;
         }
     }
 
     public boolean isSpawned() {
         return spawned;
+    }
+
+    public String test() {
+        return sprite + " " + right;
     }
 }

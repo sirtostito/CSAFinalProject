@@ -13,14 +13,14 @@ public class SkullWolf extends Enemies {
     private Animation run;
     private Animation death;
     public SkullWolf(String rightImg, String sprite, int wave) {
-        super(rightImg, sprite);
+        super(rightImg, sprite, 15 + wave * wave/5.0, 0.06);
         this.wave = wave;
         MAX_HP = 15 + wave * wave/5.0;
         DAMAGE = 20 + wave * wave/5.0;
         hp = MAX_HP;
         ArrayList<BufferedImage> run_animation = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
-            String filename = "src/Assets/" + sprite + "/Run/" + sprite + "Run" + i + ".png";
+            String filename = "src/Assets/" + sprite + "/Run/" + sprite + "Run (" + i + ").png";
             try {
                 run_animation.add(ImageIO.read(new File(filename)));
             }
@@ -31,7 +31,7 @@ public class SkullWolf extends Enemies {
         run = new Animation(run_animation,66);
         ArrayList<BufferedImage> death_animation = new ArrayList<>();
         for (int i = 1; i <= 7; i++) {
-            String filename = "src/Assets/" + sprite + "/Death/" + sprite + "Death" + i + ".png";
+            String filename = "src/Assets/" + sprite + "/Death/" + sprite + "Death (" + i + ").png";
             try {
                 death_animation.add(ImageIO.read(new File(filename)));
             }
@@ -55,5 +55,10 @@ public class SkullWolf extends Enemies {
 
     public void death() {
         super.death(7);
+    }
+
+    @Override
+    public int getyCoord() {
+        return super.getyCoord() - 50;
     }
 }

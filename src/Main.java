@@ -3,3 +3,14 @@ public class Main {
         WelcomeFrame f = new WelcomeFrame();
     }
 }
+/*
+RatAxe
+RatMage
+Minotaur
+Hoodlum
+SkullWolf
+Golem
+Cacodaemon
+NightBorne
+Death
+ */

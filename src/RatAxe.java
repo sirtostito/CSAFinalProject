@@ -13,7 +13,7 @@ public class RatAxe extends Enemies{
     private Animation death;
     private Animation run;
     public RatAxe(String rightImg, String sprite, int wave) {
-        super(rightImg, sprite);
+        super(rightImg, sprite, 15 + wave * wave/5.0, 0.02);
         this.wave = wave;
         MAX_HP = 15 + wave * wave/5.0;
         DAMAGE = 6 + wave * wave/5.0;
@@ -55,5 +55,17 @@ public class RatAxe extends Enemies{
 
     public String getHP() {
         return hp + " / " + MAX_HP;
+    }
+    @Override
+    public int getxCoord() {
+        if (super.isFacingRight()) {
+            return (int) super.getxCoord() - 10;
+        } else {
+            return (int) (super.getxCoord() - 75 + (getEnemyImage("Run").getWidth()));
+        }
+    }
+    @Override
+    public int getyCoord() {
+        return super.getyCoord() - 25;
     }
 }

@@ -13,7 +13,7 @@ public class Cacodaemon extends Enemies {
     private Animation run;
     private Animation death;
     public Cacodaemon(String rightImg, String sprite, int wave) {
-        super(rightImg, sprite);
+        super(rightImg, sprite, 50 + wave * wave/5.0, 0.05);
         this.wave = wave;
         MAX_HP = 50 + wave * wave/5.0;
         DAMAGE = 25 + wave * wave/5.0;
@@ -56,5 +56,10 @@ public class Cacodaemon extends Enemies {
 
     public void death() {
         super.death(8);
+    }
+
+    @Override
+    public int getyCoord() {
+        return super.getyCoord() - 40;
     }
 }
