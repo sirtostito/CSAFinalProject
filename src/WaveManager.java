@@ -3,41 +3,44 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class WaveManager implements ActionListener {
     private int wave;
-    private ArrayList<Enemies> allEnemies;
-    private ArrayList<Enemies> enemiesSpawn;
     private ArrayList<Enemies> enemies;
-    private ArrayList<Player> chars;
     private Timer timer;
     private int spawnNumber;
     private int enemiesRemaining;
     private int enemyNumber;
+    private ArrayList<Allies> allies;
+    private int coins;
 
     public WaveManager() {
+        coins = 5000;
+        allies = new ArrayList<>();
         spawnNumber = 0;
-        timer = new Timer(2000,this);
-        wave = 14;
-        enemies = new ArrayList<>();
-        allEnemies = new ArrayList<>();
+        wave = 0;
         startWave();
     }
     private void startWave() {
         wave += 1;
+        timer = new Timer(1000,this);
+        enemies = new ArrayList<>();
         setSpawnNumber();
         initializeEnemies();
+        timer.start();
         spawn();
     }
     public int getWave () {
         return wave;
     }
     public ArrayList<Enemies> getEnemies() {
-        return enemiesSpawn;
+        return enemies;
     }
     public void removeEnemy(Enemies enemy) {
-        enemiesSpawn.remove(enemy);
-        enemiesRemaining -= 1;
+        enemies.remove(enemy);
+        enemyNumber -= 1;
+        enemiesRemaining = enemies.size();
     }
     private void setSpawnNumber() {
         if (wave == 15) { spawnNumber = 10; }
@@ -45,7 +48,6 @@ public class WaveManager implements ActionListener {
         else if (wave >= 5) { spawnNumber = (int) (wave * 1.2); }
         else if (wave >= 2) { spawnNumber = wave * 5; }
         else if (wave == 1) { spawnNumber = 5; }
-        enemiesRemaining = spawnNumber;
     }
     private void initializeEnemies() {
         if (wave == 16) {
@@ -130,15 +132,37 @@ public class WaveManager implements ActionListener {
             }
         }
     }
+    public void endWave() {
+        enemies = new ArrayList<>();
+        enemyNumber = 0;
+        startWave();
+    }
+    public int getEnemiesRemaining() {
+        return enemiesRemaining;
+    }
+    public void subtractCoins(int subtract) {
+        coins -= subtract;
+    }
+    public void addCoins(int add) {
+        coins += add;
+    }
+    public int getCoins() {
+        return coins;
+    }
+    public ArrayList<Allies> getAllies() {
+        return allies;
+    }
+    public void addAlly(Allies ally) {
+        allies.add(ally);
+    }
     public void spawn() {
-        enemiesSpawn = new ArrayList<>(enemies);
         timer.start();
     }
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof Timer) {
-            if (!enemiesSpawn.isEmpty() && enemyNumber < enemiesSpawn.size()) {
-                enemiesSpawn.get(enemyNumber).start();
+            if (!enemies.isEmpty()) {
+                enemies.get(enemyNumber).start();
                 enemyNumber++;
             } else {
                 timer.stop();

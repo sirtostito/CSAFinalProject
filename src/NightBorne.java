@@ -13,9 +13,9 @@ public class NightBorne extends Enemies {
     private Animation run;
     private Animation death;
     public NightBorne(String rightImg, String sprite, int wave) {
-        super(rightImg, sprite, 20 + wave * wave/5.0, 0.08);
+        super(rightImg, sprite, 20 + wave * wave/5.0, 0.08,600);
         this.wave = wave;
-        MAX_HP = 20 + wave * wave/5.0;
+        MAX_HP = 90 + wave * wave/5.0;
         DAMAGE = 30 + wave * wave/5.0;
         hp = MAX_HP;
         ArrayList<BufferedImage> run_animation = new ArrayList<>();
@@ -52,9 +52,23 @@ public class NightBorne extends Enemies {
     public String getHP() {
         return hp + " / " + MAX_HP;
     }
-
+    public void damaged(double damage) {
+        if (super.getHp() > 0) {
+            super.hurt(damage);
+            if (super.getHp() <= 0) {
+                super.setHp(0);
+                GraphicsPanel.waveManager.addCoins(super.getDrop());
+                death();
+            }
+        }
+    }
     public void death() {
-        super.death(23);
+        death.resetFrames();
+        for (int i = 1; i <= 23; i++) {
+            getEnemyImage("Death");
+        }
+        super.despawn();
+        GraphicsPanel.waveManager.removeEnemy(this);
     }
 
     @Override

@@ -13,7 +13,7 @@ public class Hoodlum extends Enemies {
     private Animation run;
     private Animation death;
     public Hoodlum(String rightImg, String sprite, int wave) {
-        super(rightImg, sprite, 15 + wave * wave/5.0, 0.05);
+        super(rightImg, sprite, 15 + wave * wave/5.0, 0.05,45);
         this.wave = wave;
         MAX_HP = 15 + wave * wave/5.0;
         DAMAGE = 10 + wave * wave/5.0;
@@ -52,9 +52,23 @@ public class Hoodlum extends Enemies {
     public String getHP() {
         return hp + " / " + MAX_HP;
     }
-
+    public void damaged(double damage) {
+        if (super.getHp() > 0) {
+            super.hurt(damage);
+            if (super.getHp() <= 0) {
+                super.setHp(0);
+                GraphicsPanel.waveManager.addCoins(super.getDrop());
+                death();
+            }
+        }
+    }
     public void death() {
-        super.death(8);
+        death.resetFrames();
+        for (int i = 1; i <= 8; i++) {
+            getEnemyImage("Death");
+        }
+        super.despawn();
+        GraphicsPanel.waveManager.removeEnemy(this);
     }
 
     public int getyCoord() {

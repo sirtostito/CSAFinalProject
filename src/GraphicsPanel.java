@@ -9,14 +9,14 @@ import java.util.ArrayList;
 
 public class GraphicsPanel extends JPanel implements KeyListener, MouseListener, ActionListener {
     private BufferedImage background;
-    private Player player;
+    private Allies allies;
     private Gem gem;
     private boolean[] pressedKeys;
     private ArrayList<Coin> coins;
     private Timer timer;
     private int time;
     private String anim;
-    private ArrayList<Player> pawns;
+    private ArrayList<Allies> pawns;
     public static WaveManager waveManager;
     private int tempX;
     private int tempY;
@@ -51,29 +51,15 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         //Combined with the modified functions in the Player class, this does not modify the actual player image
         //Instead, it allows us to modify how the player image is drawn on the graphics object
         //However, this could potentially introduce desyncs between the graphics and the game logic
-        anim = "Idle";
-        // this loop does two things:  it draws each Coin that gets placed with mouse clicks,
-        // and it also checks if the player has "intersected" (collided with) the Coin, and if so,
-        // the score goes up and the Coin is removed from the arraylist
-
-
-//        for (int i = 0; i < coins.size(); i++) {
-//            Coin coin = coins.get(i);
-//            g.drawImage(coin.getImage(), coin.getxCoord(), coin.getyCoord(), null); // draw Coin
-//            if (player.playerRect().intersects(coin.coinRect())) { // check for collision
-//                coins.remove(i);
-//                i--;
-//            }
-//        }
-
-//        g.drawImage(gem.getGem(),(int) gem.getX(),(int) gem.getY(), gem.getWidth(), gem.getHeight(), null);
 
         // draw score
         g.setFont(new Font("Courier New", Font.BOLD, 24));
 //        g.drawString(player.getName() + "'s Score: " + player.getScore(), 20, 40);
-        g.drawString("Time: " + time, 20, 30);
+//        g.drawString("Time: " + time, 20, 30);
+        g.drawString("Enemies " + waveManager.getEnemiesRemaining(), 20, 30);
         g.drawString("Wave: " + waveManager.getWave(), 330, 30);
-        g.drawString("Cord: " + tempX + ", " + tempY, 550, 30);
+//        g.drawString("Cord: " + tempX + ", " + tempY, 550, 30);
+        g.drawString("Coins: " + waveManager.getCoins(),550,30);
 //        Enemies test = new Enemies("src/Assets/")
 //        g.drawImage()
 
@@ -81,37 +67,25 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
             updateEnemyLocations();
             g.drawImage(enemy.getEnemyImage("Run"), enemy.getxCoord(), enemy.getyCoord(), enemy.getWidth(), enemy.getHeight(),null);
         }
-//        // player moves left (A)
-//        if (pressedKeys[65]) {
-//            anim = "Run";
-//            player.faceLeft();
-//            player.moveLeft();
-//        }
-//
-//        // player moves right (D)
-//        if (pressedKeys[68]) {
-//            anim = "Run";
-//            player.faceRight();
-//            player.moveRight();
-//        }
-//
-//        // player moves up (W)
-//        if (pressedKeys[87]) {
-//            anim = "Run";
-//            player.moveUp();
-//        }
-//
-//        // player moves down (S)
-//        if (pressedKeys[83]) {
-//            anim = "Run";
-//            player.moveDown();
-//        }
-//
-//        if (pressedKeys[80]) {
-//            anim = "Attack";
-//        }
+        allyAttack();
+        for (Allies ally : waveManager.getAllies()) {
+            if (!ally.isEndlag()) {
+                g.drawImage(ally.getPlayerImage("Idle"), ally.getxCoord(), ally.getyCoord(), ally.getWidth(), ally.getHeight(), null);
+            } else g.drawImage(ally.attack(),ally.getxCoord(),ally.getyCoord(),null);
+        }
     }
-
+    private void allyAttack() {
+        for (Allies ally : waveManager.getAllies()) {
+            for (Enemies enemy : waveManager.getEnemies()) {
+                if (ally.playerRect().intersects(enemy.enemyRect())) {
+                    if (!ally.isEndlag()) {
+                        enemy.damaged(ally.getDamage());
+                    }
+                    ally.attackRefresh();
+                }
+            }
+        }
+    }
     private void updateEnemyLocations() {
         for (Enemies enemy : waveManager.getEnemies()) {
             if (enemy.isSpawned()) {
@@ -132,6 +106,20 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
 
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
+        if (pressedKeys[74]) {
+            System.out.println("J");
+            if (waveManager.getCoins() > 500) {
+                waveManager.addAlly(new Jones(tempX - 30, tempY - 31));
+                waveManager.subtractCoins(500);
+            }
+        }
+        if (pressedKeys[32]) {
+            System.out.println("space");
+            if (waveManager.getWave() < 15 && waveManager.getEnemies().isEmpty()) {
+                System.out.println("end wave");
+                waveManager.endWave();
+            }
+        }
         pressedKeys[key] = false;
     }
 
@@ -143,16 +131,16 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
 
     public void mouseReleased(MouseEvent e) {
         if (e.getButton() == MouseEvent.BUTTON1) {  // left mouse click
+            System.out.println("clicked");
             Point mouseClickLocation = e.getPoint();
             tempX = mouseClickLocation.x;
             tempY = mouseClickLocation.y;
-//            Player player = new Player(mouseClickLocation.x, mouseClickLocation.y);
-//            pawns.add(player);
-//        } else {
-//            Point mouseClickLocation = e.getPoint();
-//            if (player.playerRect().contains(mouseClickLocation)) {
-////                player.turn();
-//            }
+            for (Allies ally : waveManager.getAllies()) {
+                Rectangle rect = new Rectangle(tempX - 1, tempY - 1, tempX + 1, tempY + 1);
+                if (rect.intersects(ally.upgradeRect())) {
+                    ally.upgraded();
+                }
+            }
         }
     }
 

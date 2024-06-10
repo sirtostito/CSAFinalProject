@@ -13,9 +13,9 @@ public class Cacodaemon extends Enemies {
     private Animation run;
     private Animation death;
     public Cacodaemon(String rightImg, String sprite, int wave) {
-        super(rightImg, sprite, 50 + wave * wave/5.0, 0.05);
+        super(rightImg, sprite, 50 + wave * wave/5.0, 0.05,500);
         this.wave = wave;
-        MAX_HP = 50 + wave * wave/5.0;
+        MAX_HP = 75 + wave * wave/5.0;
         DAMAGE = 25 + wave * wave/5.0;
         hp = MAX_HP;
         ArrayList<BufferedImage> run_animation = new ArrayList<>();
@@ -55,7 +55,23 @@ public class Cacodaemon extends Enemies {
     }
 
     public void death() {
-        super.death(8);
+        death.resetFrames();
+        for (int i = 1; i <= 8; i++) {
+            getEnemyImage("Death");
+        }
+        super.despawn();
+        GraphicsPanel.waveManager.removeEnemy(this);
+    }
+
+    public void damaged(double damage) {
+        if (super.getHp() > 0) {
+            super.hurt(damage);
+            if (super.getHp() <= 0) {
+                super.setHp(0);
+                GraphicsPanel.waveManager.addCoins(super.getDrop());
+                death();
+            }
+        }
     }
 
     @Override

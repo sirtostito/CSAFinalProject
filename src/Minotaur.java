@@ -13,10 +13,10 @@ public class Minotaur extends Enemies {
     private Animation run;
     private Animation death;
     public Minotaur(String rightImg, String sprite, int wave) {
-        super(rightImg, sprite, 40 + wave * wave/5.0, 0.03);
+        super(rightImg, sprite, 40 + wave * wave/5.0, 0.03,700);
         this.wave = wave;
-        MAX_HP = 40 + wave * wave/5.0;
-        DAMAGE = 30 + wave * wave/5.0;
+        MAX_HP = 100 + wave * wave/5.0;
+        DAMAGE = 60 + wave * wave/5.0;
         hp = MAX_HP;
         ArrayList<BufferedImage> run_animation = new ArrayList<>();
         for (int i = 1; i <= 8; i++) {
@@ -52,9 +52,23 @@ public class Minotaur extends Enemies {
     public String getHP() {
         return hp + " / " + MAX_HP;
     }
-
+    public void damaged(double damage) {
+        if (super.getHp() > 0) {
+            super.hurt(damage);
+            if (super.getHp() <= 0) {
+                super.setHp(0);
+                GraphicsPanel.waveManager.addCoins(super.getDrop());
+                death();
+            }
+        }
+    }
     public void death() {
-        super.death(6);
+        death.resetFrames();
+        for (int i = 1; i <= 6; i++) {
+            getEnemyImage("Death");
+        }
+        super.despawn();
+        GraphicsPanel.waveManager.removeEnemy(this);
     }
 
     @Override

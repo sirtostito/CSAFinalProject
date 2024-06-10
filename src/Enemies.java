@@ -17,12 +17,14 @@ public class Enemies {
     private Animation run;
     private Animation death;
     private boolean spawned;
-    public Enemies(String rightImg, String sprite, double hp, double speed) {
+    private int drop;
+    public Enemies(String rightImg, String sprite, double hp, double speed, int drop) {
         facingRight = false;
         this.speed = speed;
         xCoord = 2000;
         yCoord = 2000;
         spawned = false;
+        this.drop = drop;
         this.sprite = sprite;
         this.hp = hp;
         try {
@@ -83,17 +85,8 @@ public class Enemies {
         }
     }
 
-    public void damaged(double damage) {
-        hp -= damage;
-    }
-
-    public void death(int frames) {
-        death.resetFrames();
-        for (int i = 1; i <= frames; i++) {
-            getEnemyImage("Death");
-        }
+    public void despawn() {
         spawned = false;
-        GraphicsPanel.waveManager.removeEnemy(this);
     }
 
     public Rectangle enemyRect() {
@@ -110,7 +103,9 @@ public class Enemies {
             return death.getActiveFrame();
         }
     }
-
+    public int getDrop() {
+        return drop;
+    }
     public boolean isFacingRight() {
         return facingRight;
     }
@@ -161,5 +156,15 @@ public class Enemies {
 
     public String test() {
         return sprite + " " + right;
+    }
+    public double getHp() {
+        return hp;
+    }
+    public void hurt(double damage) {
+        hp -= damage;
+    }
+    public void damaged(double damage) {} // override
+    public void setHp(double hp) {
+        this.hp = hp;
     }
 }
