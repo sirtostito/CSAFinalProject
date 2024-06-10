@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Enemies {
+abstract public class Enemies {
     private double speed;
     private BufferedImage right;
     private boolean facingRight;
@@ -163,7 +163,7 @@ public class Enemies {
     public void hurt(double damage) {
         hp -= damage;
     }
-    public void damaged(double damage) {} // override
+    abstract public void damaged(double damage);
     public void setHp(double hp) {
         this.hp = hp;
     }

@@ -14,17 +14,18 @@ public class WaveManager implements ActionListener {
     private int enemyNumber;
     private ArrayList<Allies> allies;
     private int coins;
+    private int time;
 
     public WaveManager() {
         coins = 5000;
         allies = new ArrayList<>();
         spawnNumber = 0;
         wave = 0;
-        startWave();
+        enemies = new ArrayList<>();
     }
     private void startWave() {
         wave += 1;
-        timer = new Timer(1000,this);
+        timer = new Timer(2000,this);
         enemies = new ArrayList<>();
         setSpawnNumber();
         initializeEnemies();
@@ -43,81 +44,62 @@ public class WaveManager implements ActionListener {
         enemiesRemaining = enemies.size();
     }
     private void setSpawnNumber() {
-        if (wave == 15) { spawnNumber = 10; }
-        else if (wave >= 10) { spawnNumber = (int) (wave * 1.1); }
-        else if (wave >= 5) { spawnNumber = (int) (wave * 1.2); }
-        else if (wave >= 2) { spawnNumber = wave * 5; }
+        if (wave == 5) { spawnNumber = 5; }
+        else if (wave == 4) { spawnNumber = 5; }
+        else if (wave == 3) { spawnNumber = 5; }
+        else if (wave == 2) { spawnNumber = 5; }
         else if (wave == 1) { spawnNumber = 5; }
     }
     private void initializeEnemies() {
-        if (wave == 16) {
+        if (wave == 6) {
             enemies.add(new Death("src/Assets/Death/Run/DeathRun (1).png","Death",wave));
-        } else if (wave == 15) {
+        } else if (wave == 5) {
             for (int i = 1; i <= spawnNumber; i++) {
-                int strength = (int) (Math.random() * 50) + 1;
+                int strength = (int) (Math.random() * 6) + 1;
                 if (strength == 1) {
-                    enemies.add(new RatAxe("src/Assets/RatAxe/Run/RatAxeRun1.png","RatAxe",wave));
-                } else if (strength == 2) {
-                    enemies.add(new RatMage("src/Assets/RatMage/Run/RatMageRun1.png","RatMage",wave));
-                } else if (strength >= 3 && strength <= 5) {
-                    enemies.add(new Hoodlum("src/Assets/Hoodlum/Run/HoodlumRun1.png","Hoodlum",wave));
-                } else if (strength >= 6 && strength <= 10) {
-                    enemies.add(new SkullWolf("src/Assets/SkullWolf/Run/SkullWolfRun (1).png","SkullWolf",wave));
-                } else if (strength >= 11 && strength <= 15) {
-                    enemies.add(new Golem("src/Assets/Golem/Run/GolemRun1.png","Golem",wave));
-                } else if (strength >= 16 && strength <= 22) {
                     enemies.add(new Cacodaemon("src/Assets/Cacodaemon/Run/CacodaemonRun1.png","Cacodaemon",wave));
-                } else if (strength >= 23 && strength <= 29) {
+                } else if (strength == 2) {
                     enemies.add(new Death("src/Assets/Death/Run/DeathRun (1).png","Death",wave));
-                } else if (strength >= 30 && strength <= 40) {
+                } else if (strength <= 4) {
                     enemies.add(new Minotaur("src/Assets/Minotaur/Run/MinotaurRun (1).png","Minotaur",wave));
-                } else if (strength >= 41 && strength <= 50) {
+                } else if (strength <= 6) {
                     enemies.add(new NightBorne("src/Assets/NightBorne/Run/NightBorneRun1.png","NightBorne",wave));
                 }
             }
 //            enemies.add(); // boss monster
-        } else if (wave >= 10) {
+        } else if (wave == 4) {
             for (int i = 1; i <= spawnNumber; i++) {
-                int strength = (int) (Math.random() * 50) + 1;
-                if (strength <= 2) {
-                    enemies.add(new RatAxe("src/Assets/RatAxe/Run/RatAxeRun1.png","RatAxe",wave));
-                } else if (strength <= 5) {
-                    enemies.add(new RatMage("src/Assets/RatMage/Run/RatMageRun1.png","RatMage",wave));
-                } else if (strength <= 10) {
-                    enemies.add(new Hoodlum("src/Assets/Hoodlum/Run/HoodlumRun1.png","Hoodlum",wave));
-                } else if (strength <= 25) {
+                int strength = (int) (Math.random() * 6) + 1;
+                if (strength == 1) {
                     enemies.add(new SkullWolf("src/Assets/SkullWolf/Run/SkullWolfRun (1).png","SkullWolf",wave));
-                } else if (strength <= 40) {
-                    enemies.add(new Golem("src/Assets/Golem/Run/GolemRun1.png","Golem",wave));
-                } else if (strength <= 45) {
+                } else if (strength == 2) {
+//                    enemies.add(new Golem("src/Assets/Golem/Run/GolemRun1.png","Golem",wave));
+                } else if (strength <= 4) {
                     enemies.add(new Cacodaemon("src/Assets/Cacodaemon/Run/CacodaemonRun1.png","Cacodaemon",wave));
-                } else if (strength <= 50) {
+                } else if (strength <= 6) {
                     enemies.add(new Death("src/Assets/Death/Run/DeathRun (1).png","Death",wave));
                 }
             }
-        } else if (wave >= 5) {
+        } else if (wave == 3) {
             for (int i = 1; i <= spawnNumber; i++) {
-                int strength = (int) (Math.random() * 50) + 1;
-                if (strength <= 5) {
-                    enemies.add(new RatAxe("src/Assets/RatAxe/Run/RatAxeRun1.png","RatAxe",wave));
-                } else if (strength <= 10) {
-                    enemies.add(new RatMage("src/Assets/RatMage/Run/RatMageRun1.png","RatMage",wave));
-                } else if (strength <= 20) {
+                int strength = (int) (Math.random() * 4) + 1;
+                if (strength <= 2) {
                     enemies.add(new Hoodlum("src/Assets/Hoodlum/Run/HoodlumRun1.png","Hoodlum",wave));
-                } else if (strength <= 35) {
+                } else if (strength == 3) {
                     enemies.add(new SkullWolf("src/Assets/SkullWolf/Run/SkullWolfRun (1).png","SkullWolf",wave));
-                } else if (strength <= 50) {
-                    enemies.add(new Golem("src/Assets/Golem/Run/GolemRun1.png","Golem",wave));
+                } else if (strength == 4) {
+//                    enemies.add(new Golem("src/Assets/Golem/Run/GolemRun1.png","Golem",wave));
+                    enemies.add(new SkullWolf("src/Assets/SkullWolf/Run/SkullWolfRun (1).png","SkullWolf",wave));
                 }
             }
-        } else if (wave >= 2) {
+        } else if (wave == 2) {
             for (int i = 1; i <= spawnNumber; i++) {
-                int strength = (int) (Math.random() * 50) + 1;
-                if (strength <= 15) {
+                int strength = (int) (Math.random() * 4) + 1;
+                if (strength == 1) {
                     enemies.add(new RatAxe("src/Assets/RatAxe/Run/RatAxeRun1.png","RatAxe",wave));
-                } else if (strength <= 30) {
+                } else if (strength == 2) {
                     enemies.add(new RatMage("src/Assets/RatMage/Run/RatMageRun1.png","RatMage",wave));
-                } else if (strength <= 50) {
+                } else if (strength <= 4) {
                     enemies.add(new Hoodlum("src/Assets/Hoodlum/Run/HoodlumRun1.png","Hoodlum",wave));
                 }
             }
@@ -158,10 +140,14 @@ public class WaveManager implements ActionListener {
     public void spawn() {
         timer.start();
     }
+    public int getTime() {
+        return time;
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof Timer) {
-            if (!enemies.isEmpty()) {
+            time++;
+            if (!enemies.isEmpty() && enemyNumber < enemies.size()) {
                 enemies.get(enemyNumber).start();
                 enemyNumber++;
             } else {

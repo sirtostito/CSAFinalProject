@@ -9,10 +9,7 @@ import java.util.ArrayList;
 
 public class GraphicsPanel extends JPanel implements KeyListener, MouseListener, ActionListener {
     private BufferedImage background;
-    private Allies allies;
-    private Gem gem;
     private boolean[] pressedKeys;
-    private ArrayList<Coin> coins;
     private Timer timer;
     private int time;
     private String anim;
@@ -32,7 +29,6 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         pawns = new ArrayList<>();
         anim = "Idle";
 //        player = new Player("src/Assets/Knight/Idle/KnightIdle1.png", name, "Knight");
-        coins = new ArrayList<>();
         pressedKeys = new boolean[128];
         time = 0;
         timer = new Timer(1000, this); // this Timer will call the actionPerformed interface method every 1000ms = 1 second
@@ -55,7 +51,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         // draw score
         g.setFont(new Font("Courier New", Font.BOLD, 24));
 //        g.drawString(player.getName() + "'s Score: " + player.getScore(), 20, 40);
-//        g.drawString("Time: " + time, 20, 30);
+        g.drawString("Time: " + waveManager.getTime(), 20, 170);
         g.drawString("Enemies " + waveManager.getEnemiesRemaining(), 20, 30);
         g.drawString("Wave: " + waveManager.getWave(), 330, 30);
 //        g.drawString("Cord: " + tempX + ", " + tempY, 550, 30);
@@ -63,32 +59,36 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
 //        Enemies test = new Enemies("src/Assets/")
 //        g.drawImage()
 
+        allyAttack();
+        updateEnemyLocations();
         for (Enemies enemy : waveManager.getEnemies()) {
-            updateEnemyLocations();
             g.drawImage(enemy.getEnemyImage("Run"), enemy.getxCoord(), enemy.getyCoord(), enemy.getWidth(), enemy.getHeight(),null);
         }
-        allyAttack();
         for (Allies ally : waveManager.getAllies()) {
             if (!ally.isEndlag()) {
                 g.drawImage(ally.getPlayerImage("Idle"), ally.getxCoord(), ally.getyCoord(), ally.getWidth(), ally.getHeight(), null);
-            } else g.drawImage(ally.attack(),ally.getxCoord(),ally.getyCoord(),null);
+            } else { g.drawImage(ally.attack(),ally.getxCoord(),ally.getyCoord(),null);
+            System.out.println("attacked"); }
         }
     }
     private void allyAttack() {
-        for (Allies ally : waveManager.getAllies()) {
-            for (Enemies enemy : waveManager.getEnemies()) {
-                if (ally.playerRect().intersects(enemy.enemyRect())) {
-                    if (!ally.isEndlag()) {
-                        enemy.damaged(ally.getDamage());
+        for (int ally = 0; ally < waveManager.getAllies().size(); ally++) {
+            for (int enemy = 0; enemy < waveManager.getEnemies().size(); enemy++) {
+                if (waveManager.getAllies().get(ally).playerRect().intersects(waveManager.getEnemies().get(enemy).enemyRect())) {
+                    if (!waveManager.getAllies().get(ally).isEndlag()) {
+                        waveManager.getEnemies().get(enemy).damaged(waveManager.getAllies().get(ally).getDamage());
                     }
-                    ally.attackRefresh();
+//                    System.out.println("Attack refresh");
+                    waveManager.getAllies().get(ally).attackRefresh();
                 }
             }
         }
+//        System.out.println("allies array list: " + waveManager.getAllies().size());
     }
     private void updateEnemyLocations() {
         for (Enemies enemy : waveManager.getEnemies()) {
             if (enemy.isSpawned()) {
+//                System.out.println("Enemy moved");
                 enemy.move();
             }
         }
@@ -115,9 +115,11 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         }
         if (pressedKeys[32]) {
             System.out.println("space");
-            if (waveManager.getWave() < 15 && waveManager.getEnemies().isEmpty()) {
+            if (waveManager.getWave() < 5 && waveManager.getEnemies().isEmpty()) {
                 System.out.println("end wave");
+                timer.stop();
                 waveManager.endWave();
+                timer.start();
             }
         }
         pressedKeys[key] = false;

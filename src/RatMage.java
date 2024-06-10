@@ -6,14 +6,13 @@ import java.util.ArrayList;
 
 public class RatMage extends Enemies {
     private double MAX_HP;
-    private final double SPEED = 0.05;
+    private final double SPEED = 0.03;
     private final double DAMAGE;
     private double hp;
     private int wave;
     private Animation run;
-    private Animation death;
     public RatMage(String rightImg, String sprite, int wave) {
-        super(rightImg, sprite, 9 + wave * wave/5.0, 0.05,25);
+        super(rightImg, sprite, 9 + wave * wave/5.0, 0.03,25);
         this.wave = wave;
         MAX_HP = 9 + wave * wave/5.0;
         DAMAGE = 5 + wave * wave/5.0;
@@ -29,25 +28,10 @@ public class RatMage extends Enemies {
             }
         }
         run = new Animation(run_animation,66);
-        ArrayList<BufferedImage> death_animation = new ArrayList<>();
-        for (int i = 1; i <= 5; i++) {
-            String filename = "src/Assets/" + sprite + "/Death/" + sprite + "Death" + i + ".png";
-            try {
-                death_animation.add(ImageIO.read(new File(filename)));
-            }
-            catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        death = new Animation(death_animation,66);
     }
     @Override
     public BufferedImage getEnemyImage(String action) {
-        if (action.equals("Run")) {
-            return run.getActiveFrame();
-        } else {
-            return death.getActiveFrame();
-        }
+        return run.getActiveFrame();
     }
     public String getHP() {
         return hp + " / " + MAX_HP;
@@ -63,10 +47,6 @@ public class RatMage extends Enemies {
         }
     }
     public void death() {
-        death.resetFrames();
-        for (int i = 1; i <= 5; i++) {
-            getEnemyImage("Death");
-        }
         super.despawn();
         GraphicsPanel.waveManager.removeEnemy(this);
     }

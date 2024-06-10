@@ -11,7 +11,6 @@ public class Golem extends Enemies {
     private double hp;
     private int wave;
     private Animation run;
-    private Animation death;
     public Golem(String rightImg, String sprite, int wave) {
         super(rightImg, sprite, 100 + wave * wave/5.0, 0.01,400);
         this.wave = wave;
@@ -29,25 +28,10 @@ public class Golem extends Enemies {
             }
         }
         run = new Animation(run_animation,66);
-        ArrayList<BufferedImage> death_animation = new ArrayList<>();
-        for (int i = 1; i <= 24; i++) {
-            String filename = "src/Assets/" + sprite + "/Death/" + sprite + "Death" + i + ".png";
-            try {
-                death_animation.add(ImageIO.read(new File(filename)));
-            }
-            catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        death = new Animation(death_animation,66);
     }
     @Override
     public BufferedImage getEnemyImage(String action) {
-        if (action.equals("Run")) {
-            return run.getActiveFrame();
-        } else {
-            return death.getActiveFrame();
-        }
+        return run.getActiveFrame();
     }
     public String getHP() {
         return hp + " / " + MAX_HP;
@@ -77,10 +61,6 @@ public class Golem extends Enemies {
         }
     }
     public void death() {
-        death.resetFrames();
-        for (int i = 1; i <= 24; i++) {
-            getEnemyImage("Death");
-        }
         super.despawn();
         GraphicsPanel.waveManager.removeEnemy(this);
     }
