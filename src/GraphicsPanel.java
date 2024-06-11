@@ -215,6 +215,14 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
                 waveManager.subtractCoins(500);
             }
         }
+        if (pressedKeys[69] && waveManager.getWave() == 69) {
+            System.out.println("E");
+            waveManager.addEnemy(new Golem("src/Assets/Golem/Run/GolemRun1.png","Golem",69,tempX + 100,tempY));
+            waveManager.addEnemy(new Death("src/Assets/Death/Run/DeathRun (1).png","Death",69,tempX - 100,tempY));
+            waveManager.addEnemy(new Cacodaemon("src/Assets/Cacodaemon/Run/CacodaemonRun1.png","Cacodaemon",69,tempX,tempY));
+            waveManager.addEnemy(new NightBorne("src/Assets/NightBorne/Run/NightBorneRun1.png","NightBorne",69,tempX - 50,tempY + 100));
+            waveManager.addEnemy(new Minotaur("src/Assets/Minotaur/Run/MinotaurRun (1).png","Minotaur",69,tempX + 50, tempY + 100));
+        }
         if (pressedKeys[82] && waveManager.getWave() == 69) {
         }
         pressedKeys[key] = false;

@@ -29,6 +29,25 @@ public class Death extends Enemies {
         }
         run = new Animation(run_animation,66);
     }
+    public Death(String rightImg, String sprite, int wave, int x, int y) {
+        super(rightImg, sprite, 100 + wave * wave/5.0, 0.01,800);
+        this.wave = wave;
+        MAX_HP = 100 + wave * wave/5.0;
+        DAMAGE = 30 + wave * wave/5.0;
+        hp = MAX_HP;
+        super.setCoords(x,y);
+        ArrayList<BufferedImage> run_animation = new ArrayList<>();
+        for (int i = 1; i <= 8; i++) {
+            String filename = "src/Assets/" + sprite + "/Run/" + sprite + "Run (" + i + ").png";
+            try {
+                run_animation.add(ImageIO.read(new File(filename)));
+            }
+            catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        run = new Animation(run_animation,66);
+    }
     @Override
     public BufferedImage getEnemyImage(String action) {
         return run.getActiveFrame();

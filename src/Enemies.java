@@ -33,7 +33,10 @@ abstract public class Enemies {
             System.out.println(e.getMessage() + " " + this.sprite);
         }
     }
-
+    public void setCoords(int x, int y) {
+        xCoord = x;
+        yCoord = y;
+    }
     public void start() {
         spawned = true;
         xCoord = 713;
