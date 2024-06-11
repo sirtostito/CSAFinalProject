@@ -12,7 +12,7 @@ public class Golem extends Enemies {
     private int wave;
     private Animation run;
     public Golem(String rightImg, String sprite, int wave) {
-        super(rightImg, sprite, 100 + wave * wave/5.0, 0.01,400);
+        super(rightImg, sprite, 100 + wave * wave/5.0, 0.01,800);
         this.wave = wave;
         MAX_HP = 100 + wave * wave/5.0;
         DAMAGE = 30 + wave * wave/5.0;

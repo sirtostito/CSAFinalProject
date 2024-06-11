@@ -12,7 +12,7 @@ public class Hoodlum extends Enemies {
     private int wave;
     private Animation run;
     public Hoodlum(String rightImg, String sprite, int wave) {
-        super(rightImg, sprite, 15 + wave * wave/5.0, 0.05,45);
+        super(rightImg, sprite, 15 + wave * wave/5.0, 0.05,200);
         this.wave = wave;
         MAX_HP = 15 + wave * wave/5.0;
         DAMAGE = 10 + wave * wave/5.0;

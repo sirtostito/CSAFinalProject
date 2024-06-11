@@ -17,10 +17,10 @@ public class WaveManager implements ActionListener {
     private int time;
 
     public WaveManager() {
-        coins = 100000;
+        coins = 500;
         allies = new ArrayList<>();
         spawnNumber = 0;
-        wave = 69;
+        wave = 0;
         enemies = new ArrayList<>();
     }
     private void startWave() {

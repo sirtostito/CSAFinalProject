@@ -180,7 +180,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         }
         if (pressedKeys[74]) {
             System.out.println("J");
-            if (waveManager.getCoins() > 500) {
+            if (waveManager.getCoins() >= 500) {
                 waveManager.addAlly(new Jones(tempX - 30, tempY - 31));
                 waveManager.subtractCoins(500);
             }

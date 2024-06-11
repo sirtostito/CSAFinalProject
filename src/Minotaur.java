@@ -12,7 +12,7 @@ public class Minotaur extends Enemies {
     private int wave;
     private Animation run;
     public Minotaur(String rightImg, String sprite, int wave) {
-        super(rightImg, sprite, 40 + wave * wave/5.0, 0.03,700);
+        super(rightImg, sprite, 40 + wave * wave/5.0, 0.03,1000);
         this.wave = wave;
         MAX_HP = 100 + wave * wave/5.0;
         DAMAGE = 60 + wave * wave/5.0;

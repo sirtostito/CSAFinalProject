@@ -12,7 +12,7 @@ public class RatAxe extends Enemies{
     private int wave;
     private Animation run;
     public RatAxe(String rightImg, String sprite, int wave) {
-        super(rightImg, sprite, 15 + wave * wave/5.0, 0.02,20);
+        super(rightImg, sprite, 15 + wave * wave/5.0, 0.02,100);
         this.wave = wave;
         MAX_HP = 15 + wave * wave/5.0;
         DAMAGE = 6 + wave * wave/5.0;

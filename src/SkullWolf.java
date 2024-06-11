@@ -12,7 +12,7 @@ public class SkullWolf extends Enemies {
     private int wave;
     private Animation run;
     public SkullWolf(String rightImg, String sprite, int wave) {
-        super(rightImg, sprite, 15 + wave * wave/5.0, 0.06,75);
+        super(rightImg, sprite, 15 + wave * wave/5.0, 0.06,250);
         this.wave = wave;
         MAX_HP = 15 + wave * wave/5.0;
         DAMAGE = 20 + wave * wave/5.0;

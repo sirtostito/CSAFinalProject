@@ -12,7 +12,7 @@ public class RatMage extends Enemies {
     private int wave;
     private Animation run;
     public RatMage(String rightImg, String sprite, int wave) {
-        super(rightImg, sprite, 9 + wave * wave/5.0, 0.03,25);
+        super(rightImg, sprite, 9 + wave * wave/5.0, 0.03,150);
         this.wave = wave;
         MAX_HP = 9 + wave * wave/5.0;
         DAMAGE = 5 + wave * wave/5.0;
