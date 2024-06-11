@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Allies {
+abstract public class Allies {
     private BufferedImage right;
     private boolean facingRight;
     private double xCoord;
@@ -102,12 +102,7 @@ public class Allies {
 //        score++;
 //    }
 
-    public BufferedImage getPlayerImage(String action) {
-        return switch (action) {
-            case "Idle" -> idle.getActiveFrame();
-            default -> throw new IllegalStateException("Unexpected value: " + action);
-        };
-    }
+    abstract public BufferedImage getPlayerImage(String action);
 
     //These functions are newly added to let the player turn left and right
     //These functions when combined with the updated getxCoord()
@@ -130,16 +125,10 @@ public class Allies {
         Rectangle rect = new Rectangle((int) xCoord, (int) yCoord, imageWidth, imageHeight);
         return rect;
     }
-    public double getDamage () {
-        return 69420;
-    }
-    public BufferedImage attack() {
-        return getPlayerImage("AttackThree");
-    }
-    public void attackRefresh() {}
-    public Rectangle upgradeRect() {
-        return new Rectangle();
-    }
+    abstract public double getDamage ();
+    abstract public BufferedImage attack();
+    abstract public void attackRefresh();
+    abstract public Rectangle upgradeRect();
     public int getCost() {
         return cost;
     }
@@ -158,5 +147,8 @@ public class Allies {
             cost += cost / 2;
             GraphicsPanel.waveManager.subtractCoins(cost);
         }
+    }
+    public void setUpgrade(int upgrade) {
+        this.upgrade = upgrade;
     }
 }

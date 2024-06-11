@@ -17,13 +17,14 @@ public class WaveManager implements ActionListener {
     private int time;
 
     public WaveManager() {
-        coins = 5000;
+        coins = 100000;
         allies = new ArrayList<>();
         spawnNumber = 0;
-        wave = 0;
+        wave = 69;
         enemies = new ArrayList<>();
     }
     private void startWave() {
+        addCoins(1000 * wave);
         wave += 1;
         timer = new Timer(2000,this);
         enemies = new ArrayList<>();
@@ -118,6 +119,15 @@ public class WaveManager implements ActionListener {
         enemies = new ArrayList<>();
         enemyNumber = 0;
         startWave();
+    }
+    public void clearAllies() {
+        allies = new ArrayList<>();
+    }
+    public void clearEnemies() {
+        enemies = new ArrayList<>();
+    }
+    public void addEnemy(Enemies enemy) {
+        enemies.add(enemy);
     }
     public int getEnemiesRemaining() {
         return enemiesRemaining;

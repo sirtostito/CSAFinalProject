@@ -3,5 +3,7 @@ public class Main {
         WelcomeFrame f = new WelcomeFrame();
     }
 }
-// 340, 221
-// 370, 252
+
+// Jones 30, 31
+// FireKnight 141, 126
+// Water Priestess 146, 128

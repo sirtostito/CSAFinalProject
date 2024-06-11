@@ -5,17 +5,17 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class FireKnight extends Allies {
+public class WaterPriestess extends Allies {
     private Animation idle;
     private Animation attackOne;
     private Animation attackTwo;
     private Animation attackThree;
     private String sprite;
     private double damage;
-    public FireKnight(double x, double y) {
-        super(x,y,"src/Assets/FireKnight/Idle/FireKnightIdle1.png","FireKnight",1000);
-        this.sprite = "FireKnight";
-        damage = 15 * getUpgrade();
+    public WaterPriestess(double x, double y) {
+        super(x,y,"src/Assets/WaterPriestess/Idle/WaterPriestessIdle1.png","WaterPriestess",1500);
+        this.sprite = "WaterPriestess";
+        damage = 20 * getUpgrade();
         ArrayList<BufferedImage> idle_animation = new ArrayList<>();
         for (int i = 1; i <= 8; i++) {
             String filename = "src/Assets/" + sprite + "/Idle/" + sprite + "Idle" + i + ".png";
@@ -28,7 +28,7 @@ public class FireKnight extends Allies {
         }
         idle = new Animation(idle_animation,66);
         ArrayList<BufferedImage> attackOne_animation = new ArrayList<>();
-        for (int i = 1; i <= 11; i++) {
+        for (int i = 1; i <= 8; i++) {
             String filename = "src/Assets/" + sprite + "/AttackOne/" + sprite + "AttackOne" + i + ".png";
             try {
                 attackOne_animation.add(ImageIO.read(new File(filename)));
@@ -39,7 +39,7 @@ public class FireKnight extends Allies {
         }
         attackOne = new Animation(attackOne_animation,66);
         ArrayList<BufferedImage> attackTwo_animation = new ArrayList<>();
-        for (int i = 12; i <= 19; i++) {
+        for (int i = 1; i <= 21; i++) {
             String filename = "src/Assets/" + sprite + "/AttackTwo/" + sprite + "AttackTwo" + i + ".png";
             try {
                 attackTwo_animation.add(ImageIO.read(new File(filename)));
@@ -50,7 +50,7 @@ public class FireKnight extends Allies {
         }
         attackTwo = new Animation(attackTwo_animation,66);
         ArrayList<BufferedImage> attackThree_animation = new ArrayList<>();
-        for (int i = 21; i <= 46; i++) {
+        for (int i = 13; i <= 27; i++) {
             String filename = "src/Assets/" + sprite + "/AttackThree/" + sprite + "AttackThree" + i + ".png";
             try {
                 attackThree_animation.add(ImageIO.read(new File(filename)));
@@ -85,13 +85,13 @@ public class FireKnight extends Allies {
     public BufferedImage attack() {
         setEndlag(true);
         if (getUpgrade() == 1) {
-            if (!(attackOne.getCurrentFrame() < 10)) { setEndlag(false); }
+            if (!(attackOne.getCurrentFrame() < 7)) { setEndlag(false); }
             return getPlayerImage("AttackOne");
         } else if (getUpgrade() == 2) {
-            if (!(attackTwo.getCurrentFrame() < 7)) { setEndlag(false); }
+            if (!(attackTwo.getCurrentFrame() < 20)) { setEndlag(false); }
             return getPlayerImage("AttackTwo");
         } else if (getUpgrade() == 3) {
-            if (!(attackThree.getCurrentFrame() < 25)) { setEndlag(false); }
+            if (!(attackThree.getCurrentFrame() < 14)) { setEndlag(false); }
             return getPlayerImage("AttackThree");
         }
         return getPlayerImage("Idle");

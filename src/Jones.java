@@ -79,8 +79,8 @@ public class Jones extends Allies {
             } else if (getUpgrade() == 3) {
                 attackThree.resetFrames();
             }
+            setEndlag(true);
         }
-        attack();
     }
     public BufferedImage attack() {
         setEndlag(true);

@@ -22,7 +22,7 @@ abstract public class Enemies {
         facingRight = false;
         this.speed = speed;
         xCoord = 2000;
-        yCoord = 2000;
+        yCoord = 100;
         spawned = false;
         this.drop = drop;
         this.sprite = sprite;
@@ -81,6 +81,9 @@ abstract public class Enemies {
             if (yCoord <= 720 && yCoord >= 584 && xCoord <= 436 && xCoord >= 434) {
                 facingRight = true;
                 moveDown();
+            }
+            if (yCoord >= 720) {
+                GraphicsPanel.lose();
             }
         }
     }
