@@ -20,7 +20,7 @@ public class WaveManager implements ActionListener {
         coins = 500;
         allies = new ArrayList<>();
         spawnNumber = 0;
-        wave = 69;
+        wave = 0;
         enemies = new ArrayList<>();
     }
     private void startWave() {
