@@ -13,7 +13,7 @@ public class Knight extends Allies {
     private String sprite;
     private double damage;
     public Knight(double x, double y) {
-        super(x,y,"src/Assets/Knight/Idle/KnightIdle1.png","Knight",1000);
+        super(x,y,"src/Assets/Knight/Idle/KnightIdle1.png","Knight",500);
         this.sprite = "Knight";
         damage = 10 * getUpgrade();
         ArrayList<BufferedImage> idle_animation = new ArrayList<>();

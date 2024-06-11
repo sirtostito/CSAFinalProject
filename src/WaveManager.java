@@ -20,7 +20,7 @@ public class WaveManager implements ActionListener {
         coins = 500;
         allies = new ArrayList<>();
         spawnNumber = 0;
-        wave = 0;
+        wave = 69;
         enemies = new ArrayList<>();
     }
     private void startWave() {
@@ -52,22 +52,24 @@ public class WaveManager implements ActionListener {
         else if (wave == 1) { spawnNumber = 5; }
     }
     private void initializeEnemies() {
-        if (wave == 6) {
+        if (wave >= 6) {
             enemies.add(new Death("src/Assets/Death/Run/DeathRun (1).png","Death",wave));
         } else if (wave == 5) {
             for (int i = 1; i <= spawnNumber; i++) {
                 int strength = (int) (Math.random() * 6) + 1;
-                if (strength == 1) {
+                if (strength <= 3) {
                     enemies.add(new Cacodaemon("src/Assets/Cacodaemon/Run/CacodaemonRun1.png","Cacodaemon",wave));
-                } else if (strength == 2) {
-                    enemies.add(new Death("src/Assets/Death/Run/DeathRun (1).png","Death",wave));
-                } else if (strength <= 4) {
-                    enemies.add(new Minotaur("src/Assets/Minotaur/Run/MinotaurRun (1).png","Minotaur",wave));
                 } else if (strength <= 6) {
-                    enemies.add(new NightBorne("src/Assets/NightBorne/Run/NightBorneRun1.png","NightBorne",wave));
+                    enemies.add(new Death("src/Assets/Death/Run/DeathRun (1).png","Death",wave));
                 }
+//                else
+//                    if (strength <= 4) {
+//                    enemies.add(new Minotaur("src/Assets/Minotaur/Run/MinotaurRun (1).png","Minotaur",wave));
+//                } else
+//                    if (strength <= 6) {
+//                    enemies.add(new NightBorne("src/Assets/NightBorne/Run/NightBorneRun1.png","NightBorne",wave));
+//                }
             }
-//            enemies.add(); // boss monster
         } else if (wave == 4) {
             for (int i = 1; i <= spawnNumber; i++) {
                 int strength = (int) (Math.random() * 6) + 1;

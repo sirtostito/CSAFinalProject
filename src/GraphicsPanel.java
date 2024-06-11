@@ -208,12 +208,12 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
 //                waveManager.subtractCoins(1500);
 //            }
         }
-        if (pressedKeys[75] && waveManager.getWave() == 69) {
+        if (pressedKeys[75]) {
             System.out.println("K");
-//            if (waveManager.getCoins() >= ) {
-            waveManager.addAlly(new Knight(tempX - 30,tempY - 45));
-//                waveManager.subtractCoins(500);
-//            }
+            if (waveManager.getCoins() >= 500) {
+                waveManager.addAlly(new Knight(tempX - 30,tempY - 45));
+                waveManager.subtractCoins(500);
+            }
         }
         if (pressedKeys[82] && waveManager.getWave() == 69) {
         }
