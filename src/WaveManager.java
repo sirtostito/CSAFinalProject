@@ -15,12 +15,13 @@ public class WaveManager implements ActionListener {
     private ArrayList<Allies> allies;
     private int coins;
     private int time;
+    private Timer gTimer;
 
-    public WaveManager() {
+    public WaveManager(Timer gTimer) {
         coins = 500;
         allies = new ArrayList<>();
         spawnNumber = 0;
-        wave = 0;
+        wave = 69;
         enemies = new ArrayList<>();
     }
     private void startWave() {
@@ -118,7 +119,6 @@ public class WaveManager implements ActionListener {
         }
     }
     public void endWave() {
-        enemies = new ArrayList<>();
         enemyNumber = 0;
         startWave();
     }

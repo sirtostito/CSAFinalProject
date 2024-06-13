@@ -41,7 +41,6 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
             System.out.println(e.getMessage());
         }
 //        gem = new Gem();
-        waveManager = new WaveManager();
         pawns = new ArrayList<>();
         anim = "Idle";
 //        player = new Player("src/Assets/Knight/Idle/KnightIdle1.png", name, "Knight");
@@ -49,6 +48,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         time = 0;
         timer = new Timer(1000, this); // this Timer will call the actionPerformed interface method every 1000ms = 1 second
         timer.start();
+        waveManager = new WaveManager(timer);
         addKeyListener(this);
         addMouseListener(this);
         setFocusable(true); // this line of code + one below makes this panel active for keylistener events
@@ -181,7 +181,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         if (pressedKeys[74]) {
             System.out.println("J");
             if (waveManager.getCoins() >= 500) {
-                waveManager.addAlly(new Jones(tempX - 30, tempY - 31));
+                waveManager.addAlly(new Jones(tempX - 30, tempY - 31, timer));
                 waveManager.subtractCoins(500);
             }
         }
@@ -189,6 +189,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
             System.out.println("space");
             if (waveManager.getWave() < 5 && waveManager.getEnemies().isEmpty()) {
                 System.out.println("end wave");
+                waveManager = new WaveManager(waveManager.getCoins(),waveManager.getAllies(), waveManager.getWave(), waveManager.getEnemies());
                 timer.stop();
                 waveManager.endWave();
                 timer.start();

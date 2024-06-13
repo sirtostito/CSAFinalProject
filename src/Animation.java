@@ -9,11 +9,10 @@ public class Animation implements ActionListener {
     private Timer timer;
     private int currentFrame;
 
-    public Animation(ArrayList<BufferedImage> frames, int delay) {
+    public Animation(ArrayList<BufferedImage> frames, Timer timer) {
         this.frames = frames;
         currentFrame = 0;
-        timer = new Timer(delay, this);
-        timer.start();
+        timer.addActionListener(this);
     }
 
     public int getCurrentFrame() {

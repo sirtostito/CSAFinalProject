@@ -1,4 +1,5 @@
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -12,7 +13,7 @@ public class Jones extends Allies {
     private Animation attackThree;
     private String sprite;
     private double damage;
-    public Jones(double x, double y) {
+    public Jones(double x, double y, Timer timer) {
         super(x,y,"src/Assets/Jones/Idle/JonesIdle1.png","Jones",500);
         this.sprite = "Jones";
         damage = 5 * getUpgrade();
@@ -26,7 +27,7 @@ public class Jones extends Allies {
                 System.out.println(e.getMessage() + " " + sprite + " idle");
             }
         }
-        idle = new Animation(idle_animation,66);
+        idle = new Animation(idle_animation,timer);
         ArrayList<BufferedImage> attackOne_animation = new ArrayList<>();
         for (int i = 1; i <= 6; i++) {
             String filename = "src/Assets/" + sprite + "/AttackOne/" + sprite + "AttackOne" + i + ".png";
